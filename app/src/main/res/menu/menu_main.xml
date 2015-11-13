@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".server_list.activity.ServerListActivity">
+
+    <item
+        android:id="@+id/action_server_tips"
+        android:icon="@mipmap/server_tips_button_normal"
+        android:orderInCategory="80"
+        android:title="提示"
+        app:showAsAction="always" />
+
+
+</menu>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.allen.loltool">
+
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <application
+        android:name=".app.MyAppliction"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme.NoActionBar">
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".server_list.activity.ServerListActivity"></activity>
+        <activity android:name=".free_hero.activity.FreeHeroActivity"></activity>
+        <activity android:name=".all_hero.activity.AllHeroActivity"></activity>
+    </application>
+
+</manifest>

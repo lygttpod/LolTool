@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">LolTool</string>
+    <string name="action_settings">Settings</string>
+    <string name="serverlist_status_title">服务器状态说明</string>
+    <string name="serverlist_status_tip">
+绿色 :\n
+        　　该区服务器可正常登入，祝游戏愉快。\n\n
+橙色 :\n
+        　　该区服务器拥挤，可能需短时排队。\n\n
+红色 :\n
+        　　该区服务器满载，可能需长时间排队，建议选择其他大区游戏。\n\n
+灰色 :\n
+        　　该区服务器正在维护，建议选择正常大区游戏。\n
+    </string>
+</resources>

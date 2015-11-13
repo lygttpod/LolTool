@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!--服务网状态颜色 -->
+    <color name="green">#3dc87e</color>
+    <color name="yellow">#ee9230</color>
+    <color name="red">#ed4949</color>
+    <color name="gray">#9d9d9d</color>
+    <color name="gray1">#EDEDED</color>
+    <!-- end -->
+
+</resources>
