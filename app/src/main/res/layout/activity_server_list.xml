@@ -17,7 +17,7 @@
         android:layout_centerVertical="true"
         android:layout_gravity="center_horizontal"
         android:visibility="gone"
-        app:indicator_color="@color/colorPrimary"
+        app:indicator_color="@color/colorAccent"
         app:indicator="BallSpinFadeLoader" />
 
     <com.handmark.pulltorefresh.library.PullToRefreshExpandableListView

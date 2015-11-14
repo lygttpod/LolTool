@@ -37,6 +37,7 @@ public class FreeHeroActivity extends AppCompatActivity {
     private FreeHeroAdapter freeHeroAdapter;
     private AsyncHttpClient asyncHttpClient;
     private Context context;
+    private List<FreeHeroBean.DataEntity> dataEntities;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +46,15 @@ public class FreeHeroActivity extends AppCompatActivity {
         initToolbar();
         ButterKnife.bind(this);
         context = this;
+        dataEntities = new ArrayList<>();
+        initGridview();
         getFreeHeroList();
+    }
+
+    private void initGridview(){
+        freeHeroAdapter = new FreeHeroAdapter(context, dataEntities);
+        freeHeroGridview.getRefreshableView().setAdapter(freeHeroAdapter);
+
     }
 
     private void initToolbar() {
@@ -75,8 +84,10 @@ public class FreeHeroActivity extends AppCompatActivity {
                 String response = new String(responseBody);
                 FreeHeroBean freeHeroBean = JsonUtils.getObject(response, FreeHeroBean.class);
 
-                freeHeroAdapter = new FreeHeroAdapter(context, freeHeroBean);
-                freeHeroGridview.getRefreshableView().setAdapter(freeHeroAdapter);
+                for (FreeHeroBean.DataEntity data:freeHeroBean.getData()
+                     ) {
+                    dataEntities.add(data);
+                }
 
             }
 
@@ -89,6 +100,7 @@ public class FreeHeroActivity extends AppCompatActivity {
             public void onFinish() {
                 super.onFinish();
                 loadingView.setVisibility(View.GONE);
+                freeHeroAdapter.notifyDataSetChanged();
             }
         });
     }

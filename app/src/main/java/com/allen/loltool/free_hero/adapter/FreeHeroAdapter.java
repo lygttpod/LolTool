@@ -25,26 +25,28 @@ import butterknife.ButterKnife;
 public class FreeHeroAdapter extends BaseAdapter {
     private Context mContext;
 
-    private FreeHeroBean freeHeroBean;
+    private List<FreeHeroBean.DataEntity> dataEntities;
 
-    public FreeHeroAdapter(Context mContext, FreeHeroBean freeHeroBean) {
+
+
+    public FreeHeroAdapter(Context mContext, List<FreeHeroBean.DataEntity> dataEntities) {
         this.mContext = mContext;
-        this.freeHeroBean = freeHeroBean;
+        this.dataEntities = dataEntities;
     }
 
     @Override
     public int getCount() {
-        return freeHeroBean.getData().size();
+        return dataEntities.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return freeHeroBean.getData().get(position);
+        return dataEntities.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
@@ -57,7 +59,7 @@ public class FreeHeroAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        String name = freeHeroBean.getData().get(position).getName();
+        String name = dataEntities.get(position).getName();
         String name1 = name.substring(0, name.indexOf(" "));
         String name2 = name.substring(name.indexOf(" "), name.length());
 
@@ -70,7 +72,7 @@ public class FreeHeroAdapter extends BaseAdapter {
 
         ImageLoader.getInstance()
                 .displayImage(
-                        UrlAddress.base_url + freeHeroBean.getData().get(position).getImg(),
+                        UrlAddress.base_url + dataEntities.get(position).getImg(),
                         viewHolder.heroImgIV, options);
         return convertView;
     }

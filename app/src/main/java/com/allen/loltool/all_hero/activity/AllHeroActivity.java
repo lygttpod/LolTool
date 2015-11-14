@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.Toast;
@@ -20,6 +21,9 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -41,6 +45,8 @@ public class AllHeroActivity extends AppCompatActivity {
     private Context context;
     private static int count = 1;
     private AllHeroBean allHeroBean;
+    private List<AllHeroBean.DataEntity> dataEntities;
+    public static Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +54,12 @@ public class AllHeroActivity extends AppCompatActivity {
         setContentView(R.layout.activity_free_hero);
         initToolbar();
         ButterKnife.bind(this);
-        context = this;
-        getAllHeroList(UrlAddress.all_hero_url);
+        initHandler();
+        context = AllHeroActivity.this;
+        dataEntities = new ArrayList<>();
         initGridview();
+        getAllHeroList(UrlAddress.all_hero_url);
+
     }
 
     private void initToolbar() {
@@ -80,6 +89,11 @@ public class AllHeroActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 String response = new String(responseBody);
                 allHeroBean = JsonUtils.getObject(response, AllHeroBean.class);
+                //dataEntities = allHeroBean.getData();
+                for (AllHeroBean.DataEntity data:allHeroBean.getData()
+                     ) {
+                    dataEntities.add(data);
+                }
                 handler.sendEmptyMessage(0);
             }
 
@@ -91,19 +105,24 @@ public class AllHeroActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 super.onFinish();
+                Log.d("aaa", "datasize="+dataEntities.size());
                 loadingView.setVisibility(View.GONE);
                 freeHeroGridview.onRefreshComplete();
+
+
             }
         });
     }
 
     private void initGridview() {
-        freeHeroGridview.setMode(PullToRefreshBase.Mode.BOTH);
+        allHeroAdapter = new AllHeroAdapter(context, dataEntities);
 
+        freeHeroGridview.setMode(PullToRefreshBase.Mode.BOTH);
         freeHeroGridview.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<GridView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<GridView> refreshView) {
                 count = 1;
+                dataEntities.clear();
                 getAllHeroList(UrlAddress.all_hero_url);
             }
 
@@ -120,16 +139,19 @@ public class AllHeroActivity extends AppCompatActivity {
 
             }
         });
+        freeHeroGridview.getRefreshableView().setAdapter(allHeroAdapter);
+
     }
 
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            allHeroAdapter = new AllHeroAdapter(context, allHeroBean);
-            freeHeroGridview.getRefreshableView().setAdapter(allHeroAdapter);
-            allHeroAdapter.notifyDataSetChanged();
+    private void initHandler(){
+        handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                allHeroAdapter.notifyDataSetChanged();
 
-        }
-    };
+            }
+        };
+    }
+
 }

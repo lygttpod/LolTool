@@ -181,7 +181,7 @@ public class ServerListAdapter extends BaseExpandableListAdapter {
             case "拥挤":
                 viewHolder_children.serverListChildrenStatusIV.setTextColor(mContext.getResources().getColor(R.color.yellow));
                 break;
-            case "载满":
+            case "满载":
                 viewHolder_children.serverListChildrenStatusIV.setTextColor(mContext.getResources().getColor(R.color.red));
                 break;
             case "维护":
@@ -198,7 +198,7 @@ public class ServerListAdapter extends BaseExpandableListAdapter {
             case "拥挤":
                 viewHolder_children.serverListChildrenStatusIV.setTextColor(mContext.getResources().getColor(R.color.yellow));
                 break;
-            case "载满":
+            case "满载":
                 viewHolder_children.serverListChildrenStatusIV.setTextColor(mContext.getResources().getColor(R.color.red));
                 break;
             case "维护":
@@ -215,7 +215,7 @@ public class ServerListAdapter extends BaseExpandableListAdapter {
             case "拥挤":
                 viewHolder_children.serverListChildrenStatusIV.setTextColor(mContext.getResources().getColor(R.color.yellow));
                 break;
-            case "载满":
+            case "满载":
                 viewHolder_children.serverListChildrenStatusIV.setTextColor(mContext.getResources().getColor(R.color.red));
                 break;
             case "维护":

@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListView;
+import android.widget.ListView;
 
 import com.allen.loltool.R;
 import com.allen.loltool.common.UrlAddress;
@@ -26,6 +27,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -57,11 +59,12 @@ public class ServerListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_server_list);
         initToolbar();
-        wtEntities = new ArrayList<>();
-        dxEntities = new ArrayList<>();
-        otherEntities = new ArrayList<>();
-        context = this;
+        wtEntities = new LinkedList<>();
+        dxEntities = new LinkedList<>();
+        otherEntities = new LinkedList<>();
+        context = ServerListActivity.this;
         ButterKnife.bind(this);
+        initListview();
         getServerList();
 
     }
@@ -85,14 +88,21 @@ public class ServerListActivity extends AppCompatActivity {
 
         serverListAdapter = new ServerListAdapter(context, wtEntities, dxEntities, otherEntities);
         serverListListview.getRefreshableView().setAdapter(serverListAdapter);
-        serverListListview.getRefreshableView().expandGroup(0);
+        for (int i = 0; i < 3; i++) {
+            serverListListview.getRefreshableView().expandGroup(i);
+
+        }
         serverListListview.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ExpandableListView>() {
             @Override
             public void onRefresh(PullToRefreshBase<ExpandableListView> refreshView) {
+                wtEntities.clear();
+                dxEntities.clear();
+                otherEntities.clear();
                 getServerList();
             }
         });
-        serverListAdapter.notifyDataSetChanged();
+
+
     }
 
     private void getServerList() {
@@ -107,14 +117,18 @@ public class ServerListActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 String response = new String(responseBody);
-                wtEntities = null;
-                dxEntities = null;
-                otherEntities = null;
                 serverListBean = JsonUtils.getObject(response, ServerListBean.class);
-                wtEntities = serverListBean.get网通();
-                dxEntities = serverListBean.get电信();
-                otherEntities = serverListBean.get其他();
-
+                for (ServerListBean.WTEntity wt:serverListBean.get网通()) {
+                    wtEntities.add(wt);
+                }
+                for (ServerListBean.DXEntity dx :serverListBean.get电信()
+                        ) {
+                    dxEntities.add(dx);
+                }
+                for (ServerListBean.OtherEntity other :serverListBean.get其他()
+                        ) {
+                    otherEntities.add(other);
+                }
                 handler.sendEmptyMessage(0);
             }
 
@@ -169,7 +183,7 @@ public class ServerListActivity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            initListview();
+            serverListAdapter.notifyDataSetChanged();
         }
     };
 }

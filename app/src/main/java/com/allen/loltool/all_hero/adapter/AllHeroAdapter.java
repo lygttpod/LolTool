@@ -14,6 +14,8 @@ import com.allen.loltool.all_hero.bean.AllHeroBean;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.util.List;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -23,26 +25,27 @@ import butterknife.ButterKnife;
 public class AllHeroAdapter extends BaseAdapter {
     private Context mContext;
 
-    private AllHeroBean allHeroBean;
+    private List<AllHeroBean.DataEntity> dataEntities;
 
-    public AllHeroAdapter(Context mContext, AllHeroBean freeHeroBean) {
+
+    public AllHeroAdapter(Context mContext, List<AllHeroBean.DataEntity> dataEntities) {
         this.mContext = mContext;
-        this.allHeroBean = freeHeroBean;
+        this.dataEntities = dataEntities;
     }
 
     @Override
     public int getCount() {
-        return allHeroBean.getData().size();
+        return dataEntities.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return allHeroBean.getData().get(position);
+        return dataEntities.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
@@ -55,7 +58,7 @@ public class AllHeroAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        String name = allHeroBean.getData().get(position).getName();
+        String name = dataEntities.get(position).getName();
         String name1 = name.substring(0, name.indexOf(" "));
         String name2 = name.substring(name.indexOf(" "), name.length());
 
@@ -68,7 +71,7 @@ public class AllHeroAdapter extends BaseAdapter {
 
         ImageLoader.getInstance()
                 .displayImage(
-                        UrlAddress.base_url + allHeroBean.getData().get(position).getImg(),
+                        UrlAddress.base_url + dataEntities.get(position).getImg(),
                         viewHolder.heroImgIV, options);
         return convertView;
     }
