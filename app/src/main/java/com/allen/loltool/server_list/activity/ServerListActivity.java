@@ -53,6 +53,8 @@ public class ServerListActivity extends AppCompatActivity {
     private List<ServerListBean.WTEntity> wtEntities;
     private List<ServerListBean.DXEntity> dxEntities;
     private List<ServerListBean.OtherEntity> otherEntities;
+    private String[] server_list_name = {"网通", "电信", "其他"};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +88,7 @@ public class ServerListActivity extends AppCompatActivity {
     private void initListview() {
         serverListListview.getRefreshableView().setGroupIndicator(null);
 
-        serverListAdapter = new ServerListAdapter(context, wtEntities, dxEntities, otherEntities);
+        serverListAdapter = new ServerListAdapter(context, server_list_name,wtEntities, dxEntities, otherEntities);
         serverListListview.getRefreshableView().setAdapter(serverListAdapter);
         for (int i = 0; i < 3; i++) {
             serverListListview.getRefreshableView().expandGroup(i);

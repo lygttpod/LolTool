@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
 public class ServerListAdapter extends BaseExpandableListAdapter {
     private Context mContext;
 
-    private String[] server_list_name = {"网通", "电信", "其他"};
+    private String[] server_list_name ;
     private List<ServerListBean.WTEntity> wtEntities;
     private List<ServerListBean.DXEntity> dxEntities;
     private List<ServerListBean.OtherEntity> otherEntities;
@@ -34,6 +34,14 @@ public class ServerListAdapter extends BaseExpandableListAdapter {
 
     public ServerListAdapter(Context mContext, List<ServerListBean.WTEntity> wtEntities, List<ServerListBean.DXEntity> dxEntities, List<ServerListBean.OtherEntity> otherEntities) {
         this.mContext = mContext;
+        this.wtEntities = wtEntities;
+        this.dxEntities = dxEntities;
+        this.otherEntities = otherEntities;
+    }
+
+    public ServerListAdapter(Context mContext, String[] server_list_name, List<ServerListBean.WTEntity> wtEntities, List<ServerListBean.DXEntity> dxEntities, List<ServerListBean.OtherEntity> otherEntities) {
+        this.mContext = mContext;
+        this.server_list_name = server_list_name;
         this.wtEntities = wtEntities;
         this.dxEntities = dxEntities;
         this.otherEntities = otherEntities;

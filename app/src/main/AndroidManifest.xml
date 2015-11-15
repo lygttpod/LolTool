@@ -25,6 +25,7 @@
         <activity android:name=".server_list.activity.ServerListActivity"></activity>
         <activity android:name=".free_hero.activity.FreeHeroActivity"></activity>
         <activity android:name=".all_hero.activity.AllHeroActivity"></activity>
+        <activity android:name=".summoner.activity.SummonerActivity"></activity>
     </application>
 
 </manifest>

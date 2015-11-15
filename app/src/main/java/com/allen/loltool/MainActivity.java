@@ -12,6 +12,7 @@ import com.allen.loltool.all_hero.activity.AllHeroActivity;
 import com.allen.loltool.free_hero.activity.FreeHeroActivity;
 import com.allen.loltool.server_list.activity.ServerListActivity;
 import com.allen.loltool.server_list.bean.ServerListBean;
+import com.allen.loltool.summoner.activity.SummonerActivity;
 import com.allen.loltool.utils.JsonUtils;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     Button buttonFreehero;
     @Bind(R.id.button_allhero)
     Button buttonAllhero;
+    @Bind(R.id.button_summoner)
+    Button buttonSummoner;
     private AsyncHttpClient asyncHttpClient;
 
     @Override
@@ -65,6 +68,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, AllHeroActivity.class);
+                startActivity(intent);
+            }
+        });
+        buttonSummoner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SummonerActivity.class);
                 startActivity(intent);
             }
         });
