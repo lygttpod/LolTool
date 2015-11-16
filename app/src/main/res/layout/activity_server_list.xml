@@ -17,8 +17,8 @@
         android:layout_centerVertical="true"
         android:layout_gravity="center_horizontal"
         android:visibility="gone"
-        app:indicator_color="@color/colorAccent"
-        app:indicator="BallSpinFadeLoader" />
+        app:indicator="BallSpinFadeLoader"
+        app:indicator_color="@color/colorAccent" />
 
     <com.handmark.pulltorefresh.library.PullToRefreshExpandableListView
         android:id="@+id/server_list_listview"
@@ -32,6 +32,8 @@
         android:fastScrollEnabled="false"
         android:footerDividersEnabled="false"
         android:headerDividersEnabled="false"
+        android:layout_marginBottom="5dp"
+        android:scrollbars="none"
         android:smoothScrollbar="true"></com.handmark.pulltorefresh.library.PullToRefreshExpandableListView>
 
 </RelativeLayout>

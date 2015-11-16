@@ -1,10 +1,13 @@
 package com.allen.loltool.summoner.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 
 import com.allen.loltool.R;
 import com.allen.loltool.common.UrlAddress;
@@ -64,11 +67,23 @@ public class SummonerActivity extends AppCompatActivity {
             }
         });
     }
-    private void initGridview(){
+
+    private void initGridview() {
         summonerAdapter = new SummonerAdapter(context, dataEntities);
         freeHeroGridview.getRefreshableView().setAdapter(summonerAdapter);
+        freeHeroGridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ShowDespDialog(dataEntities.get(position).getName(), dataEntities
+                        .get(position).getDesp());
+            }
+        });
 
     }
+
+    /**
+     * 获取技能列表数据
+     */
     private void getSummonerList() {
         asyncHttpClient = new AsyncHttpClient();
         asyncHttpClient.get(context, UrlAddress.summoner_url, new AsyncHttpResponseHandler() {
@@ -102,5 +117,25 @@ public class SummonerActivity extends AppCompatActivity {
                 summonerAdapter.notifyDataSetChanged();
             }
         });
+    }
+
+    /**
+     * 显示英雄技能描述
+     * @param name
+     * @param desp
+     */
+    private void ShowDespDialog(String name, String desp) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(name);
+        builder.setMessage(desp);
+        builder.setCancelable(false);
+        builder.setPositiveButton("关闭", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.create().show();
+
     }
 }

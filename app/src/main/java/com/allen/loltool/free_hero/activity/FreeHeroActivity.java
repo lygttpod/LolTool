@@ -1,16 +1,20 @@
 package com.allen.loltool.free_hero.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 
 import com.allen.loltool.R;
 import com.allen.loltool.common.UrlAddress;
 import com.allen.loltool.free_hero.adapter.FreeHeroAdapter;
 import com.allen.loltool.free_hero.bean.FreeHeroBean;
+import com.allen.loltool.hero_details.activity.HeroDetailsActivity;
 import com.allen.loltool.utils.JsonUtils;
+import com.allen.loltool.utils.ToastUtils;
 import com.allen.loltool.widget.loading.AVLoadingIndicatorView;
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
 import com.loopj.android.http.AsyncHttpClient;
@@ -51,9 +55,17 @@ public class FreeHeroActivity extends AppCompatActivity {
         getFreeHeroList();
     }
 
-    private void initGridview(){
+    private void initGridview() {
         freeHeroAdapter = new FreeHeroAdapter(context, dataEntities);
         freeHeroGridview.getRefreshableView().setAdapter(freeHeroAdapter);
+        freeHeroGridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ToastUtils.showShort(context, dataEntities.get(position).getName() + position);
+                Intent intent = new Intent(context, HeroDetailsActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -84,8 +96,8 @@ public class FreeHeroActivity extends AppCompatActivity {
                 String response = new String(responseBody);
                 FreeHeroBean freeHeroBean = JsonUtils.getObject(response, FreeHeroBean.class);
 
-                for (FreeHeroBean.DataEntity data:freeHeroBean.getData()
-                     ) {
+                for (FreeHeroBean.DataEntity data : freeHeroBean.getData()
+                        ) {
                     dataEntities.add(data);
                 }
 
@@ -93,7 +105,7 @@ public class FreeHeroActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
+                ToastUtils.showShort(context, "数据加载失败，请稍后再试！");
             }
 
             @Override

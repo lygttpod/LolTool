@@ -16,6 +16,7 @@ import com.allen.loltool.common.UrlAddress;
 import com.allen.loltool.all_hero.adapter.AllHeroAdapter;
 import com.allen.loltool.all_hero.bean.AllHeroBean;
 import com.allen.loltool.utils.JsonUtils;
+import com.allen.loltool.utils.ToastUtils;
 import com.allen.loltool.widget.loading.AVLoadingIndicatorView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
@@ -90,8 +91,8 @@ public class AllHeroActivity extends AppCompatActivity {
                 String response = new String(responseBody);
                 allHeroBean = JsonUtils.getObject(response, AllHeroBean.class);
                 //dataEntities = allHeroBean.getData();
-                for (AllHeroBean.DataEntity data:allHeroBean.getData()
-                     ) {
+                for (AllHeroBean.DataEntity data : allHeroBean.getData()
+                        ) {
                     dataEntities.add(data);
                 }
                 handler.sendEmptyMessage(0);
@@ -99,13 +100,13 @@ public class AllHeroActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
+                ToastUtils.showShort(context, "数据加载失败，请稍后再试！");
             }
 
             @Override
             public void onFinish() {
                 super.onFinish();
-                Log.d("aaa", "datasize="+dataEntities.size());
+                Log.d("aaa", "datasize=" + dataEntities.size());
                 loadingView.setVisibility(View.GONE);
                 freeHeroGridview.onRefreshComplete();
 
@@ -130,7 +131,7 @@ public class AllHeroActivity extends AppCompatActivity {
             public void onPullUpToRefresh(PullToRefreshBase<GridView> refreshView) {
                 count++;
                 if (count <= allHeroBean.getTotal_pages()) {
-                    String all_hero_url = "http://spenly.com/lol/search?kws=&cp=" + count + "&limit=20";
+                    String all_hero_url = "http://spenly.com/lol/heros?kws=&cp=" + count + "&limit=20";
                     getAllHeroList(all_hero_url);
                 } else {
                     Toast.makeText(context, "全部加载完毕。", Toast.LENGTH_SHORT).show();
@@ -143,7 +144,7 @@ public class AllHeroActivity extends AppCompatActivity {
 
     }
 
-    private void initHandler(){
+    private void initHandler() {
         handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {

@@ -26,6 +26,7 @@
         <activity android:name=".free_hero.activity.FreeHeroActivity"></activity>
         <activity android:name=".all_hero.activity.AllHeroActivity"></activity>
         <activity android:name=".summoner.activity.SummonerActivity"></activity>
+        <activity android:name=".hero_details.activity.HeroDetailsActivity"></activity>
     </application>
 
 </manifest>

@@ -20,8 +20,8 @@
         android:numColumns="auto_fit"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="5dp"
         android:stretchMode="columnWidth"
         android:horizontalSpacing="10dp"
         android:verticalSpacing="10dp" />

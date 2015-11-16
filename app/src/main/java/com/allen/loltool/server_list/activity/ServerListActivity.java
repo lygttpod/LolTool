@@ -20,6 +20,7 @@ import com.allen.loltool.common.UrlAddress;
 import com.allen.loltool.server_list.adapter.ServerListAdapter;
 import com.allen.loltool.server_list.bean.ServerListBean;
 import com.allen.loltool.utils.JsonUtils;
+import com.allen.loltool.utils.ToastUtils;
 import com.allen.loltool.widget.loading.AVLoadingIndicatorView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshExpandableListView;
@@ -50,9 +51,7 @@ public class ServerListActivity extends AppCompatActivity {
 
     private ServerListAdapter serverListAdapter;
     private ServerListBean serverListBean;
-    private List<ServerListBean.WTEntity> wtEntities;
-    private List<ServerListBean.DXEntity> dxEntities;
-    private List<ServerListBean.OtherEntity> otherEntities;
+    private List<ServerListBean.DataEntity> dataEntities;
     private String[] server_list_name = {"网通", "电信", "其他"};
 
 
@@ -61,9 +60,7 @@ public class ServerListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_server_list);
         initToolbar();
-        wtEntities = new LinkedList<>();
-        dxEntities = new LinkedList<>();
-        otherEntities = new LinkedList<>();
+        dataEntities = new ArrayList<>();
         context = ServerListActivity.this;
         ButterKnife.bind(this);
         initListview();
@@ -88,18 +85,12 @@ public class ServerListActivity extends AppCompatActivity {
     private void initListview() {
         serverListListview.getRefreshableView().setGroupIndicator(null);
 
-        serverListAdapter = new ServerListAdapter(context, server_list_name,wtEntities, dxEntities, otherEntities);
+        serverListAdapter = new ServerListAdapter(context, dataEntities);
         serverListListview.getRefreshableView().setAdapter(serverListAdapter);
-        for (int i = 0; i < 3; i++) {
-            serverListListview.getRefreshableView().expandGroup(i);
-
-        }
         serverListListview.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ExpandableListView>() {
             @Override
             public void onRefresh(PullToRefreshBase<ExpandableListView> refreshView) {
-                wtEntities.clear();
-                dxEntities.clear();
-                otherEntities.clear();
+                dataEntities.clear();
                 getServerList();
             }
         });
@@ -120,23 +111,17 @@ public class ServerListActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 String response = new String(responseBody);
                 serverListBean = JsonUtils.getObject(response, ServerListBean.class);
-                for (ServerListBean.WTEntity wt:serverListBean.get网通()) {
-                    wtEntities.add(wt);
-                }
-                for (ServerListBean.DXEntity dx :serverListBean.get电信()
+                for (ServerListBean.DataEntity data : serverListBean.getData()
                         ) {
-                    dxEntities.add(dx);
+                    dataEntities.add(data);
                 }
-                for (ServerListBean.OtherEntity other :serverListBean.get其他()
-                        ) {
-                    otherEntities.add(other);
-                }
+
                 handler.sendEmptyMessage(0);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
+                ToastUtils.showShort(context, "数据加载失败，请稍后再试！");
             }
 
             @Override
@@ -185,6 +170,10 @@ public class ServerListActivity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
+            for (int i = 0; i < dataEntities.size(); i++) {
+                serverListListview.getRefreshableView().expandGroup(i);
+
+            }
             serverListAdapter.notifyDataSetChanged();
         }
     };
