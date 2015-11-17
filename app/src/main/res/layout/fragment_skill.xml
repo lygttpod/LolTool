@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <TextView
+            style="@style/skill_title_textview_style"
+            android:text="操作技巧" />
+
+        <TextView
+            android:id="@+id/op_skill_TV"
+            style="@style/skill_content_textview_style" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <TextView
+            style="@style/skill_title_textview_style"
+            android:text="团战思路" />
+
+        <TextView
+            android:id="@+id/teamwork_TV"
+            style="@style/skill_content_textview_style" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <TextView
+            style="@style/skill_title_textview_style"
+            android:text="使用技巧" />
+
+        <TextView
+            android:id="@+id/use_skill_TV"
+            style="@style/skill_content_textview_style" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <TextView
+            style="@style/skill_title_textview_style"
+            android:text="对抗技巧" />
+
+        <TextView
+            android:id="@+id/ag_skill_TV"
+            style="@style/skill_content_textview_style" />
+
+    </LinearLayout>
+
+</LinearLayout>

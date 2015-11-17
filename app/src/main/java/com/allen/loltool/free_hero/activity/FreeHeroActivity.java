@@ -62,7 +62,11 @@ public class FreeHeroActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ToastUtils.showShort(context, dataEntities.get(position).getName() + position);
+                String heroId = dataEntities.get(position).getId();
+                String heroName = dataEntities.get(position).getName();
                 Intent intent = new Intent(context, HeroDetailsActivity.class);
+                intent.putExtra("id",heroId);
+                intent.putExtra("name", heroName);
                 startActivity(intent);
             }
         });

@@ -1,6 +1,7 @@
 package com.allen.loltool.all_hero.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
@@ -15,6 +17,7 @@ import com.allen.loltool.R;
 import com.allen.loltool.common.UrlAddress;
 import com.allen.loltool.all_hero.adapter.AllHeroAdapter;
 import com.allen.loltool.all_hero.bean.AllHeroBean;
+import com.allen.loltool.hero_details.activity.HeroDetailsActivity;
 import com.allen.loltool.utils.JsonUtils;
 import com.allen.loltool.utils.ToastUtils;
 import com.allen.loltool.widget.loading.AVLoadingIndicatorView;
@@ -119,6 +122,18 @@ public class AllHeroActivity extends AppCompatActivity {
         allHeroAdapter = new AllHeroAdapter(context, dataEntities);
 
         freeHeroGridview.setMode(PullToRefreshBase.Mode.BOTH);
+        freeHeroGridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ToastUtils.showShort(context, dataEntities.get(position).getName() + dataEntities.get(position).getId());
+                String heroId = dataEntities.get(position).getId();
+                String heroName = dataEntities.get(position).getName();
+                Intent intent = new Intent(context, HeroDetailsActivity.class);
+                intent.putExtra("id",heroId);
+                intent.putExtra("name",heroName);
+                startActivity(intent);
+            }
+        });
         freeHeroGridview.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<GridView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<GridView> refreshView) {
