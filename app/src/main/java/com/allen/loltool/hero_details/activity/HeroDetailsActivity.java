@@ -17,7 +17,10 @@ import com.allen.loltool.R;
 import com.allen.loltool.common.UrlAddress;
 import com.allen.loltool.hero_details.adapter.FragmentAdapter;
 import com.allen.loltool.hero_details.bean.HeroDetailsBean;
+import com.allen.loltool.hero_details.fragment.EquipmentFragment;
+import com.allen.loltool.hero_details.fragment.GonglueFragment;
 import com.allen.loltool.hero_details.fragment.SkillFragment;
+import com.allen.loltool.hero_details.fragment.StoryFragment;
 import com.allen.loltool.utils.JsonUtils;
 import com.allen.loltool.utils.LogUtil;
 import com.allen.loltool.utils.ToastUtils;
@@ -50,8 +53,8 @@ public class HeroDetailsActivity extends AppCompatActivity {
     TabLayout tablayout;
     @Bind(R.id.viewpager)
     ViewPager viewpager;
-    @Bind(R.id.actionBtn)
-    FloatingActionButton actionBtn;
+//    @Bind(R.id.actionBtn)
+//    FloatingActionButton actionBtn;
 
     private String hid = "";
     private String hname;
@@ -68,7 +71,7 @@ public class HeroDetailsActivity extends AppCompatActivity {
         heroDetailsBean = null;
         Bundle bundle = getIntent().getExtras();
         hid = bundle.getString("id");
-        hname = bundle.getString("name");
+        hname = bundle.getString("name").substring(0, bundle.getString("name").indexOf(" "));
         ButterKnife.bind(this);
         getHeroDetails(hid);
         initToolbar();
@@ -100,9 +103,9 @@ public class HeroDetailsActivity extends AppCompatActivity {
         tablayout.addTab(tablayout.newTab().setText(titles.get(3)));
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new SkillFragment().newInstance(heroDetailsBean));
-        fragments.add(new SkillFragment().newInstance(heroDetailsBean));
-        fragments.add(new SkillFragment().newInstance(heroDetailsBean));
-        fragments.add(new SkillFragment().newInstance(heroDetailsBean));
+        fragments.add(new EquipmentFragment().newInstance(heroDetailsBean));
+        fragments.add(new StoryFragment().newInstance(heroDetailsBean));
+        fragments.add(new GonglueFragment().newInstance(heroDetailsBean));
         adapter =
                 new FragmentAdapter(getSupportFragmentManager(), fragments, titles);
         viewpager.setAdapter(adapter);

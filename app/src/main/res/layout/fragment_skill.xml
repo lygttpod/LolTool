@@ -2,70 +2,194 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="5dp">
+        android:orientation="vertical">
 
-        <TextView
-            style="@style/skill_title_textview_style"
-            android:text="操作技巧" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp">
 
-        <TextView
-            android:id="@+id/op_skill_TV"
-            style="@style/skill_content_textview_style" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/hero_text_tag" />
+
+                <TextView
+                    style="@style/skill_title_textview_style"
+                    android:text="操作技巧" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/op_skill_TV"
+                style="@style/skill_content_textview_style" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/hero_text_tag" />
+
+                <TextView
+                    style="@style/skill_title_textview_style"
+                    android:text="团战思路" />
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/teamwork_TV"
+                style="@style/skill_content_textview_style" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/hero_text_tag" />
+
+                <TextView
+                    style="@style/skill_title_textview_style"
+                    android:text="技能介绍" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:paddingLeft="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/skill1_img"
+                    style="@style/skill_imageview_style"
+                    android:src="@mipmap/skill" />
+
+                <ImageView
+                    android:id="@+id/skill2_img"
+                    style="@style/skill_imageview_style"
+                    android:src="@mipmap/skill" />
+
+                <ImageView
+                    android:id="@+id/skill3_img"
+                    style="@style/skill_imageview_style"
+                    android:src="@mipmap/skill" />
+
+                <ImageView
+                    android:id="@+id/skill4_img"
+                    style="@style/skill_imageview_style"
+                    android:src="@mipmap/skill" />
+
+                <ImageView
+                    android:id="@+id/skill5_img"
+                    style="@style/skill_imageview_style"
+                    android:src="@mipmap/skill" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/skill_name_TV"
+                style="@style/skill_content_textview_style" />
+
+            <TextView
+                android:background="@color/gray1"
+                android:id="@+id/skill_des_TV"
+                style="@style/skill_content_textview_style" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="5dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/hero_text_tag" />
+
+                <TextView
+                    style="@style/skill_title_textview_style"
+                    android:text="使用技巧" />
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/use_skill_TV"
+                style="@style/skill_content_textview_style" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/hero_text_tag" />
+
+                <TextView
+                    style="@style/skill_title_textview_style"
+                    android:text="对抗技巧" />
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/ag_skill_TV"
+                style="@style/skill_content_textview_style" />
+
+        </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="5dp">
-
-        <TextView
-            style="@style/skill_title_textview_style"
-            android:text="团战思路" />
-
-        <TextView
-            android:id="@+id/teamwork_TV"
-            style="@style/skill_content_textview_style" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="5dp">
-
-        <TextView
-            style="@style/skill_title_textview_style"
-            android:text="使用技巧" />
-
-        <TextView
-            android:id="@+id/use_skill_TV"
-            style="@style/skill_content_textview_style" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="5dp">
-
-        <TextView
-            style="@style/skill_title_textview_style"
-            android:text="对抗技巧" />
-
-        <TextView
-            android:id="@+id/ag_skill_TV"
-            style="@style/skill_content_textview_style" />
-
-    </LinearLayout>
 
 </LinearLayout>
