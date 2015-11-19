@@ -18,31 +18,50 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="skill_title_textview_style">
+
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_marginLeft">20dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
+        <item name="android:padding">5dp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">18dp</item>
     </style>
 
     <style name="skill_content_textview_style">
+        <item name="android:padding">5dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:textSize">16dp</item>
-        <item name="android:layout_marginLeft">30dp</item>
+
+    </style>
+
+    <style name="chuzhuang_title_textview_style">
+
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:textSize">16dp</item>
     </style>
 
     <style name="chuzhuang_content_textview_style">
+        <item name="android:padding">5dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:textSize">16dp</item>
-        <item name="android:paddingLeft">10dp</item>
-        <item name="android:paddingRight">10dp</item>
+
     </style>
 
     <style name="skill_imageview_style">
+        <item name="android:src">@drawable/image_click</item>
         <item name="android:layout_height">40dp</item>
         <item name="android:layout_width">40dp</item>
         <item name="android:layout_margin">5dp</item>
+
     </style>
 
 </resources>

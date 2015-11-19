@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/hero_text_tag" />
+
+                <TextView
+
+                    style="@style/skill_title_textview_style"
+                    android:text="操作技巧" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/hero_text_tag"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:id="@+id/op_skill_TV"
+                    style="@style/skill_content_textview_style"
+                    android:text="测试" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/hero_text_tag" />
+
+                <TextView
+                    style="@style/skill_title_textview_style"
+                    android:text="团战思路" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/hero_text_tag"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:id="@+id/teamwork_TV"
+                    style="@style/skill_content_textview_style"
+                    android:text="测试" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/hero_text_tag" />
+
+                <TextView
+                    style="@style/skill_title_textview_style"
+                    android:text="技能介绍" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/hero_text_tag"
+                    android:visibility="invisible" />
+
+                <ImageView
+                    android:id="@+id/skill1_img"
+                    style="@style/skill_imageview_style"
+                    android:src="@mipmap/skill" />
+
+                <ImageView
+                    android:id="@+id/skill2_img"
+                    style="@style/skill_imageview_style"
+                    android:src="@mipmap/skill" />
+
+                <ImageView
+                    android:id="@+id/skill3_img"
+                    style="@style/skill_imageview_style"
+                    android:src="@mipmap/skill" />
+
+                <ImageView
+                    android:id="@+id/skill4_img"
+                    style="@style/skill_imageview_style"
+                    android:src="@mipmap/skill" />
+
+                <ImageView
+                    android:id="@+id/skill5_img"
+                    style="@style/skill_imageview_style"
+                    android:src="@mipmap/skill" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/hero_text_tag"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:id="@+id/skill_name_TV"
+                    style="@style/skill_content_textview_style"
+                    android:text="测试" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/gray1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/hero_text_tag"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:id="@+id/skill_des_TV"
+                    style="@style/skill_content_textview_style"
+                    android:text="测试" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/hero_text_tag" />
+
+                <TextView
+                    style="@style/skill_title_textview_style"
+                    android:text="使用技巧" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/hero_text_tag"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:id="@+id/use_skill_TV"
+                    style="@style/skill_content_textview_style"
+                    android:text="测试" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/hero_text_tag" />
+
+                <TextView
+                    style="@style/skill_title_textview_style"
+                    android:text="对抗技巧" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/hero_text_tag"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:id="@+id/ag_skill_TV"
+                    style="@style/skill_content_textview_style"
+                    android:text="测试" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

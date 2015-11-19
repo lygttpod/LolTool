@@ -14,6 +14,7 @@ import com.allen.loltool.common.UrlAddress;
 import com.allen.loltool.summoner.adapter.SummonerAdapter;
 import com.allen.loltool.summoner.bean.SummonerBean;
 import com.allen.loltool.utils.JsonUtils;
+import com.allen.loltool.utils.ToastUtils;
 import com.allen.loltool.widget.loading.AVLoadingIndicatorView;
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
 import com.loopj.android.http.AsyncHttpClient;
@@ -107,7 +108,7 @@ public class SummonerActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
+                ToastUtils.showShort(context, "数据加载失败，请稍后再试！");
             }
 
             @Override
@@ -121,6 +122,7 @@ public class SummonerActivity extends AppCompatActivity {
 
     /**
      * 显示英雄技能描述
+     *
      * @param name
      * @param desp
      */

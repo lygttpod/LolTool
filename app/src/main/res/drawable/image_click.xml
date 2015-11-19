@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Disabled -->
+    <item android:drawable="@drawable/light_green_press" android:state_enabled="false" android:state_pressed="false" />
+    <!-- Pressed -->
+    <item android:drawable="@drawable/light_green_press" android:state_enabled="true" android:state_pressed="true" />
+    <!-- Focused -->
+    <!-- <item android:state_enabled="true"
+    android:state_focused="true"
+    android:textColor="@android:color/white"
+    android:drawable="@drawable/list_item_focused" /> -->
+    <!-- Default -->
+    <item android:drawable="@drawable/switch_account" android:state_enabled="true" android:state_pressed="false" />
+</selector>

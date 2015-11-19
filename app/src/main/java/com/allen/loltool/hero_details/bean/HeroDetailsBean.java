@@ -38,7 +38,7 @@ public class HeroDetailsBean implements Serializable {
      * skill2 : /static/lol_imgs/imgs/2015-11-16/img/spell/Pulverize.png|大地粉碎（Q）
      * skill1 : /static/lol_imgs/imgs/2015-11-16/img/passive/Minotaur_ColossalStrength.png|践踏（被动）
      * opponent_reason1 : 真实伤害是牛头的痛。
-     奥拉夫的大招可以完全无视掉牛头的控制技能。
+     * 奥拉夫的大招可以完全无视掉牛头的控制技能。
      * skill3_expend : 消耗：65/70/75/80/85 法力
      * skill5 : /static/lol_imgs/imgs/2015-11-16/img/spell/FerociousHowl.png|坚定意志（R）
      * skill4 : /static/lol_imgs/imgs/2015-11-16/img/spell/TriumphantRoar.png|胜利怒吼（E）
@@ -49,21 +49,21 @@ public class HeroDetailsBean implements Serializable {
      * discount_end_date : 2015-11-09 00:00:00
      * use_skill1 : 使用大地粉碎可以让你在更好的位置施放野蛮冲撞。
      * skill2_desc : 阿利斯塔锤击地面，造成60/105/150/195/240(+0.5*AP)魔法伤害并将目标抛向空中，先造成1秒击飞效果，然后造成0.5秒晕眩效果。
-     距离：365
+     * 距离：365
      * best_partner2 : 51
      * discount_begin_date : 2015-11-05 10:00:00
      * story : 作为宏伟屏障牛头族历史上最强大的勇士，阿利斯塔保护着他的部落免受来自瓦洛兰大陆的伤害，但诺克萨斯军队的出现打破了这个局面。达克威尔男爵最年轻的儿子，也是诺克萨斯远征军的指挥官——恺朗达克威尔用诡计将阿利斯塔引诱出村庄。当阿利斯塔回去时，他发现村庄已被烧毁，家人也被杀。他愤怒地咆哮着，冲向一群诺克萨斯精英，将他们大卸八块。一些诺克萨斯的精英召唤师挡住了阿利斯塔的进攻。阿利斯塔被囚禁在诺克萨斯，在此期间，他成为了“绞肉大赛”的角斗士，陷入了无尽的战斗，只为了供诺克萨斯贵族娱乐。
-
-     阿利斯塔曾经高尚的灵魂渐渐地扭曲。如果不是年轻女仆艾丽亚的出现，他早就疯掉了。她和他交朋友，并协助他逃跑。突然间获得自由的阿利斯塔加入了刚成立的英雄联盟。成为英雄的他希望有一天能够向诺克萨斯复仇，并找到那个令他重燃希望的女孩。一开始，阿利斯塔并不适应他作为英雄的名人身份，但他后来发现，名声给他带来了能力。他声援那些遭到诺克萨斯政府欺压的人，他还揭露那些诺克萨斯军队想掩盖的真相。这让阿利斯塔很不受诺克萨斯贵族的欢迎。他的慈善事业也让他获得了几次慈善奖项，这和他给英雄联盟带来的愤怒和破坏形成有趣的对比。
-
-     作为召唤师，如果你想通过抓住公牛角来制服公牛，那么阿利斯塔可能有话要说。
+     * <p/>
+     * 阿利斯塔曾经高尚的灵魂渐渐地扭曲。如果不是年轻女仆艾丽亚的出现，他早就疯掉了。她和他交朋友，并协助他逃跑。突然间获得自由的阿利斯塔加入了刚成立的英雄联盟。成为英雄的他希望有一天能够向诺克萨斯复仇，并找到那个令他重燃希望的女孩。一开始，阿利斯塔并不适应他作为英雄的名人身份，但他后来发现，名声给他带来了能力。他声援那些遭到诺克萨斯政府欺压的人，他还揭露那些诺克萨斯军队想掩盖的真相。这让阿利斯塔很不受诺克萨斯贵族的欢迎。他的慈善事业也让他获得了几次慈善奖项，这和他给英雄联盟带来的愤怒和破坏形成有趣的对比。
+     * <p/>
+     * 作为召唤师，如果你想通过抓住公牛角来制服公牛，那么阿利斯塔可能有话要说。
      * coin : 1350.0
      * skill2_add :
      * discount : true
      * skill4_cooling : 冷却时间：12/12/12/12/12秒
      * active : true
      * skill4_desc : 回复自己60/90/120/150/180(+0.2*AP)生命值，并回复附近友军的生命值，但回复效果减半。附近每有一个敌方单位阵亡，这个技能的冷却时间就会减少2/2/2/2/2秒。
-     距离：575
+     * 距离：575
      * insert_date : 2014-05-09 17:02:11
      * best_partner1 : 67
      * name : 阿利斯塔
@@ -71,8 +71,8 @@ public class HeroDetailsBean implements Serializable {
      * skill5_desc : 阿利斯塔增加60/75/90物理攻击，移除身上所有的控制效果，受到的物理和魔法伤害减少70%/70%/70%，持续7/7/7秒。
      * magic : 5
      * skill3_desc : 阿利斯塔向一名敌人发出冲锋，用角将其撞退，造成55/110/165/220/275(+0.7*AP)魔法伤害，并在击退目标时晕眩他们。
-     距离：600
-     位移速度：1200
+     * 距离：600
+     * 位移速度：1200
      * difficulty : 8
      * skill2_cooling : 冷却时间：17/16/15/14/13秒
      * skill4_add :
@@ -167,9 +167,9 @@ public class HeroDetailsBean implements Serializable {
      * smooth_desc :
      * smooth1 : 2045
      * bad_rune : 精华：高级生命值精华 x3
-     印记：高级护甲印记 x9
-     符印：高级护甲符印 x9
-     雕纹：高级魔法抗性雕纹 x9
+     * 印记：高级护甲印记 x9
+     * 符印：高级护甲符印 x9
+     * 雕纹：高级魔法抗性雕纹 x9
      * smooth3 : 3117
      * smooth2 : 3069
      * smooth5 : 3110
@@ -180,9 +180,9 @@ public class HeroDetailsBean implements Serializable {
      * last_modify_date : 2014-11-23 16:58:33
      * smooth_author : 喔喔喔喔喔
      * smooth_rune : 精华：高级生命值精华 x3
-     印记：高级护甲印记 x9
-     符印：高级护甲符印 x9
-     雕纹：高级魔法抗性雕纹 x9
+     * 印记：高级护甲印记 x9
+     * 符印：高级护甲符印 x9
+     * 雕纹：高级魔法抗性雕纹 x9
      * first3 : 2044
      * first4 : 3341
      * id : 485
@@ -762,10 +762,13 @@ public class HeroDetailsBean implements Serializable {
         return play_list;
     }
 
-    public static class PlayListEntity {
-        private int first1_num;
-        private int first4_num;
-        private int first2_num;
+    /**
+     * 需要序列化
+     */
+    public static class PlayListEntity implements Serializable {
+        private String first1_num;
+        private String first4_num;
+        private String first2_num;
         private String insert_date;
         private String first5;
         private String smooth_desc;
@@ -783,7 +786,7 @@ public class HeroDetailsBean implements Serializable {
         private String smooth_rune;
         private String first3;
         private String first4;
-        private int id;
+        private String id;
         private String bad_inborn;
         private String first7;
         private String bad6;
@@ -792,29 +795,49 @@ public class HeroDetailsBean implements Serializable {
         private String bad3;
         private String bad2;
         private String bad1;
-        private int first5_num;
+        private String first5_num;
         private String smooth_inborn;
         private String name;
         private String first2;
         private String smooth_level;
-        private int first7_num;
+        private String first7_num;
         private String bad_author;
         private String add;
         private String first6;
-        private int first3_num;
-        private int first6_num;
+        private String first3_num;
+        private String first6_num;
         private String bad_desc;
 
-        public void setFirst1_num(int first1_num) {
+        public void setFirst1_num(String first1_num) {
             this.first1_num = first1_num;
         }
 
-        public void setFirst4_num(int first4_num) {
+        public void setFirst4_num(String first4_num) {
             this.first4_num = first4_num;
         }
 
-        public void setFirst2_num(int first2_num) {
+        public void setFirst2_num(String first2_num) {
             this.first2_num = first2_num;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public void setFirst5_num(String first5_num) {
+            this.first5_num = first5_num;
+        }
+
+        public void setFirst7_num(String first7_num) {
+            this.first7_num = first7_num;
+        }
+
+        public void setFirst3_num(String first3_num) {
+            this.first3_num = first3_num;
+        }
+
+        public void setFirst6_num(String first6_num) {
+            this.first6_num = first6_num;
         }
 
         public void setInsert_date(String insert_date) {
@@ -885,9 +908,6 @@ public class HeroDetailsBean implements Serializable {
             this.first4 = first4;
         }
 
-        public void setId(int id) {
-            this.id = id;
-        }
 
         public void setBad_inborn(String bad_inborn) {
             this.bad_inborn = bad_inborn;
@@ -921,9 +941,6 @@ public class HeroDetailsBean implements Serializable {
             this.bad1 = bad1;
         }
 
-        public void setFirst5_num(int first5_num) {
-            this.first5_num = first5_num;
-        }
 
         public void setSmooth_inborn(String smooth_inborn) {
             this.smooth_inborn = smooth_inborn;
@@ -941,9 +958,6 @@ public class HeroDetailsBean implements Serializable {
             this.smooth_level = smooth_level;
         }
 
-        public void setFirst7_num(int first7_num) {
-            this.first7_num = first7_num;
-        }
 
         public void setBad_author(String bad_author) {
             this.bad_author = bad_author;
@@ -957,28 +971,8 @@ public class HeroDetailsBean implements Serializable {
             this.first6 = first6;
         }
 
-        public void setFirst3_num(int first3_num) {
-            this.first3_num = first3_num;
-        }
-
-        public void setFirst6_num(int first6_num) {
-            this.first6_num = first6_num;
-        }
-
         public void setBad_desc(String bad_desc) {
             this.bad_desc = bad_desc;
-        }
-
-        public int getFirst1_num() {
-            return first1_num;
-        }
-
-        public int getFirst4_num() {
-            return first4_num;
-        }
-
-        public int getFirst2_num() {
-            return first2_num;
         }
 
         public String getInsert_date() {
@@ -1049,9 +1043,6 @@ public class HeroDetailsBean implements Serializable {
             return first4;
         }
 
-        public int getId() {
-            return id;
-        }
 
         public String getBad_inborn() {
             return bad_inborn;
@@ -1085,9 +1076,6 @@ public class HeroDetailsBean implements Serializable {
             return bad1;
         }
 
-        public int getFirst5_num() {
-            return first5_num;
-        }
 
         public String getSmooth_inborn() {
             return smooth_inborn;
@@ -1105,10 +1093,6 @@ public class HeroDetailsBean implements Serializable {
             return smooth_level;
         }
 
-        public int getFirst7_num() {
-            return first7_num;
-        }
-
         public String getBad_author() {
             return bad_author;
         }
@@ -1119,14 +1103,6 @@ public class HeroDetailsBean implements Serializable {
 
         public String getFirst6() {
             return first6;
-        }
-
-        public int getFirst3_num() {
-            return first3_num;
-        }
-
-        public int getFirst6_num() {
-            return first6_num;
         }
 
         public String getBad_desc() {
