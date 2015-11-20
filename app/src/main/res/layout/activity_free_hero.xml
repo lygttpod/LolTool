@@ -4,26 +4,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
-    <include
-        android:id="@+id/toolbar_freehero"
-        layout="@layout/app_toolbar" />
+    <!-- <include
+            android:id="@+id/toolbar_freehero"
+            layout="@layout/app_toolbar" />
+     -->
 
     <com.handmark.pulltorefresh.library.PullToRefreshGridView
         android:id="@+id/free_hero_gridview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar_freehero"
-        android:columnWidth="80dp"
-        android:gravity="center"
-        android:scrollbars="none"
-        android:numColumns="auto_fit"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="5dp"
-        android:stretchMode="columnWidth"
+        android:columnWidth="80dp"
+        android:gravity="center"
         android:horizontalSpacing="10dp"
+        android:numColumns="auto_fit"
+        android:paddingBottom="5dp"
+        android:paddingTop="10dp"
+        android:scrollbars="none"
+        android:stretchMode="columnWidth"
         android:verticalSpacing="10dp" />
 
     <com.allen.loltool.widget.loading.AVLoadingIndicatorView
@@ -33,7 +32,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:visibility="gone"
-        app:indicator_color="@color/colorAccent"
-        app:indicator="BallSpinFadeLoader" />
+        app:indicator="BallSpinFadeLoader"
+        app:indicator_color="@color/colorAccent" />
 
 </RelativeLayout>

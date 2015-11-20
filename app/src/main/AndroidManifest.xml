@@ -23,10 +23,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".server_list.activity.ServerListActivity"></activity>
-        <activity android:name=".free_hero.activity.FreeHeroActivity"></activity>
-        <activity android:name=".all_hero.activity.AllHeroActivity"></activity>
-        <activity android:name=".summoner.activity.SummonerActivity"></activity>
         <activity android:name=".hero_details.activity.HeroDetailsActivity"></activity>
+        <activity android:name=".hero_data.activity.HeroDataActivity"/>
     </application>
 
 </manifest>

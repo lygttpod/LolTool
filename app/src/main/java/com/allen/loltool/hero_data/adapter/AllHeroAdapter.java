@@ -1,4 +1,4 @@
-package com.allen.loltool.all_hero.adapter;
+package com.allen.loltool.hero_data.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.allen.loltool.R;
 import com.allen.loltool.common.UrlAddress;
-import com.allen.loltool.all_hero.bean.AllHeroBean;
+import com.allen.loltool.hero_data.bean.AllHeroBean.DataEntity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -25,10 +25,10 @@ import butterknife.ButterKnife;
 public class AllHeroAdapter extends BaseAdapter {
     private Context mContext;
 
-    private List<AllHeroBean.DataEntity> dataEntities;
+    private List<DataEntity> dataEntities;
 
 
-    public AllHeroAdapter(Context mContext, List<AllHeroBean.DataEntity> dataEntities) {
+    public AllHeroAdapter(Context mContext, List<DataEntity> dataEntities) {
         this.mContext = mContext;
         this.dataEntities = dataEntities;
     }

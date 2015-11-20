@@ -1,21 +1,27 @@
-package com.allen.loltool.summoner.activity;
+package com.allen.loltool.hero_data.fragment;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.GridView;
 
 import com.allen.loltool.R;
 import com.allen.loltool.common.UrlAddress;
-import com.allen.loltool.summoner.adapter.SummonerAdapter;
-import com.allen.loltool.summoner.bean.SummonerBean;
+
+import com.allen.loltool.hero_data.adapter.SummonerAdapter;
+import com.allen.loltool.hero_data.bean.SummonerBean;
+import com.allen.loltool.hero_data.bean.SummonerBean.DataEntity;
 import com.allen.loltool.utils.JsonUtils;
 import com.allen.loltool.utils.ToastUtils;
 import com.allen.loltool.widget.loading.AVLoadingIndicatorView;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -28,45 +34,66 @@ import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
 /**
- * Created by Allen on 15/11/15.
+ * Created by Allen on 2015/11/20.
  */
-public class SummonerActivity extends AppCompatActivity {
+public class SummonerFragment extends Fragment {
 
     @Bind(R.id.free_hero_gridview)
     PullToRefreshGridView freeHeroGridview;
     @Bind(R.id.loadingView)
     AVLoadingIndicatorView loadingView;
-
     private Context context;
 
     private SummonerAdapter summonerAdapter;
-    private List<SummonerBean.DataEntity> dataEntities;
+    private List<DataEntity> dataEntities;
     private AsyncHttpClient asyncHttpClient;
 
+
+    public static Fragment newInstance() {
+        SummonerFragment summonerFragment = new SummonerFragment();
+        return summonerFragment;
+    }
+
+    protected boolean isVisible;//判断是否显示
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_free_hero);
-        ButterKnife.bind(this);
-        context = this;
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (getUserVisibleHint()) {
+            isVisible = true;
+            if (dataEntities.size() <= 0) {
+                getSummonerList();
+
+            }
+        } else {
+            isVisible = false;
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
         dataEntities = new ArrayList<>();
-        initToolbar();
-        initGridview();
-        getSummonerList();
 
     }
 
-    private void initToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("召唤师技能");
-        setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.mipmap.titlebar_leftarrow_back);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_free_hero, container, false);
+        ButterKnife.bind(this, view);
+        context = getActivity();
+        dataEntities = new ArrayList<>();
+
+        initGridview();
+
+        return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
     }
 
     private void initGridview() {
@@ -77,6 +104,13 @@ public class SummonerActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ShowDespDialog(dataEntities.get(position).getName(), dataEntities
                         .get(position).getDesp());
+            }
+        });
+
+        freeHeroGridview.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<GridView>() {
+            @Override
+            public void onRefresh(PullToRefreshBase<GridView> refreshView) {
+                getSummonerList();
             }
         });
 
@@ -99,7 +133,7 @@ public class SummonerActivity extends AppCompatActivity {
                 String response = new String(responseBody);
                 SummonerBean summonerBean = JsonUtils.getObject(response, SummonerBean.class);
 
-                for (SummonerBean.DataEntity data : summonerBean.getData()
+                for (DataEntity data : summonerBean.getData()
                         ) {
                     dataEntities.add(data);
                 }
@@ -116,6 +150,7 @@ public class SummonerActivity extends AppCompatActivity {
                 super.onFinish();
                 loadingView.setVisibility(View.GONE);
                 summonerAdapter.notifyDataSetChanged();
+                freeHeroGridview.onRefreshComplete();
             }
         });
     }
@@ -139,5 +174,11 @@ public class SummonerActivity extends AppCompatActivity {
         });
         builder.create().show();
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 }

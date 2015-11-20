@@ -1,4 +1,4 @@
-package com.allen.loltool.free_hero.adapter;
+package com.allen.loltool.hero_data.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -10,7 +10,8 @@ import android.widget.TextView;
 
 import com.allen.loltool.R;
 import com.allen.loltool.common.UrlAddress;
-import com.allen.loltool.free_hero.bean.FreeHeroBean;
+import com.allen.loltool.hero_data.bean.SummonerBean;
+import com.allen.loltool.hero_data.bean.SummonerBean.DataEntity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -20,16 +21,15 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
- * Created by hardy on 2015/11/13.
+ * Created by allen on 2015/11/13.
  */
-public class FreeHeroAdapter extends BaseAdapter {
+public class SummonerAdapter extends BaseAdapter {
     private Context mContext;
 
-    private List<FreeHeroBean.DataEntity> dataEntities;
 
+    private List<DataEntity> dataEntities;
 
-
-    public FreeHeroAdapter(Context mContext, List<FreeHeroBean.DataEntity> dataEntities) {
+    public SummonerAdapter(Context mContext, List<DataEntity> dataEntities) {
         this.mContext = mContext;
         this.dataEntities = dataEntities;
     }
@@ -53,17 +53,15 @@ public class FreeHeroAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
         if (convertView == null) {
-            convertView = View.inflate(mContext, R.layout.free_hero_item, null);
+            convertView = View.inflate(mContext, R.layout.summoner_item, null);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         String name = dataEntities.get(position).getName();
-        String name1 = name.substring(0, name.indexOf(" "));
-        String name2 = name.substring(name.indexOf(" "), name.length());
 
-        viewHolder.heroNameTV.setText(name1 + "\n" + name2);
+        viewHolder.heroNameTV.setText(name);
 
         DisplayImageOptions options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.mipmap.default_l)

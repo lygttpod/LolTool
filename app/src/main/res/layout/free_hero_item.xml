@@ -3,7 +3,6 @@
     android:layout_width="80dp"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
-    android:background="@drawable/switch_account"
     android:orientation="vertical">
 
     <ImageView

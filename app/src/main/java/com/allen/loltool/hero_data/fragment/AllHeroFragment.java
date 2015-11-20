@@ -1,22 +1,24 @@
-package com.allen.loltool.all_hero.activity;
+package com.allen.loltool.hero_data.fragment;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
 import com.allen.loltool.R;
 import com.allen.loltool.common.UrlAddress;
-import com.allen.loltool.all_hero.adapter.AllHeroAdapter;
-import com.allen.loltool.all_hero.bean.AllHeroBean;
+import com.allen.loltool.hero_data.adapter.AllHeroAdapter;
+import com.allen.loltool.hero_data.bean.AllHeroBean;
 import com.allen.loltool.hero_details.activity.HeroDetailsActivity;
 import com.allen.loltool.utils.JsonUtils;
 import com.allen.loltool.utils.ToastUtils;
@@ -34,15 +36,15 @@ import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
 /**
- * Created by hardy on 2015/11/13.
+ * Created by Allen on 2015/11/20.
  */
-public class AllHeroActivity extends AppCompatActivity {
-    @Bind(R.id.toolbar)
-    Toolbar toolbar;
+public class AllHeroFragment extends Fragment {
+
     @Bind(R.id.free_hero_gridview)
     PullToRefreshGridView freeHeroGridview;
     @Bind(R.id.loadingView)
     AVLoadingIndicatorView loadingView;
+
 
     private AllHeroAdapter allHeroAdapter;
     private AsyncHttpClient asyncHttpClient;
@@ -52,33 +54,52 @@ public class AllHeroActivity extends AppCompatActivity {
     private List<AllHeroBean.DataEntity> dataEntities;
     public static Handler handler;
 
+    public static Fragment newInstance() {
+        AllHeroFragment allHeroFragment = new AllHeroFragment();
+        return allHeroFragment;
+    }
+
+    protected boolean isVisible;//判断是否显示
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_free_hero);
-        initToolbar();
-        ButterKnife.bind(this);
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (getUserVisibleHint()) {
+            isVisible = true;
+            if (dataEntities.size() <= 0) {
+                getAllHeroList(UrlAddress.all_hero_url);
+
+            }
+        } else {
+            isVisible = false;
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        dataEntities = new ArrayList<>();
+
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_free_hero, container, false);
+        ButterKnife.bind(this, view);
         initHandler();
-        context = AllHeroActivity.this;
+        context = getActivity();
         dataEntities = new ArrayList<>();
         initGridview();
-        getAllHeroList(UrlAddress.all_hero_url);
 
+        return view;
     }
 
-    private void initToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("所有英雄");
-        setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.mipmap.titlebar_leftarrow_back);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-    }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
 
     private void getAllHeroList(String url) {
         asyncHttpClient = new AsyncHttpClient();
@@ -129,8 +150,8 @@ public class AllHeroActivity extends AppCompatActivity {
                 String heroId = dataEntities.get(position).getId();
                 String heroName = dataEntities.get(position).getName();
                 Intent intent = new Intent(context, HeroDetailsActivity.class);
-                intent.putExtra("id",heroId);
-                intent.putExtra("name",heroName);
+                intent.putExtra("id", heroId);
+                intent.putExtra("name", heroName);
                 startActivity(intent);
             }
         });
@@ -144,14 +165,18 @@ public class AllHeroActivity extends AppCompatActivity {
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<GridView> refreshView) {
-                count++;
-                if (count <= allHeroBean.getTotal_pages()) {
-                    String all_hero_url = "http://spenly.com/lol/heros?kws=&cp=" + count + "&limit=20";
-                    getAllHeroList(all_hero_url);
-                } else {
-                    Toast.makeText(context, "全部加载完毕。", Toast.LENGTH_SHORT).show();
-                    freeHeroGridview.onRefreshComplete();
+
+                if (allHeroBean != null) {
+                    count++;
+                    if (count <= allHeroBean.getTotal_pages()) {
+                        String all_hero_url = "http://spenly.com/lol/heros?kws=&cp=" + count + "&limit=20";
+                        getAllHeroList(all_hero_url);
+                    } else {
+                        Toast.makeText(context, "全部加载完毕。", Toast.LENGTH_SHORT).show();
+                        freeHeroGridview.onRefreshComplete();
+                    }
                 }
+
 
             }
         });
@@ -170,4 +195,9 @@ public class AllHeroActivity extends AppCompatActivity {
         };
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
 }

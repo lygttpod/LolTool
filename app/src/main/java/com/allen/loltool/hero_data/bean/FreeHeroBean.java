@@ -1,4 +1,4 @@
-package com.allen.loltool.free_hero.bean;
+package com.allen.loltool.hero_data.bean;
 
 import java.util.List;
 
