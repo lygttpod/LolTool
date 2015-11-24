@@ -25,6 +25,7 @@
         <activity android:name=".server_list.activity.ServerListActivity"></activity>
         <activity android:name=".hero_details.activity.HeroDetailsActivity"></activity>
         <activity android:name=".hero_data.activity.HeroDataActivity"/>
+        <activity android:name=".home.activity.HomeActivity"></activity>
     </application>
 
 </manifest>

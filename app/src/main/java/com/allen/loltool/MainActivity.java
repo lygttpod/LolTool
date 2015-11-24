@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.allen.loltool.hero_data.activity.HeroDataActivity;
+import com.allen.loltool.home.activity.HomeActivity;
 import com.allen.loltool.server_list.activity.ServerListActivity;
 import com.loopj.android.http.AsyncHttpClient;
 
@@ -19,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
     Button buttonServerlist;
     @Bind(R.id.button_herodata)
     Button buttonHerodata;
+    @Bind(R.id.button_news)
+    Button buttonNews;
     private AsyncHttpClient asyncHttpClient;
 
     @Override
@@ -41,6 +44,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, HeroDataActivity.class);
+                startActivity(intent);
+            }
+        });
+        buttonNews.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                 startActivity(intent);
             }
         });

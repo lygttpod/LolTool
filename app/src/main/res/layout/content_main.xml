@@ -29,4 +29,12 @@
         android:layout_below="@+id/button_serverlist"
         android:layout_centerHorizontal="true"
         android:text="英雄资料" />
+
+    <Button
+        android:id="@+id/button_news"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_serverlist"
+        android:layout_centerHorizontal="true"
+        android:text="资讯信息" />
 </LinearLayout>

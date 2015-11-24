@@ -1,12 +1,17 @@
 package com.allen.loltool.hero_data.activity;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 
 import com.allen.loltool.R;
+import com.allen.loltool.base.BaseFragment;
 import com.allen.loltool.hero_data.adapter.HeroDataFragmentAdapter;
 import com.allen.loltool.hero_data.fragment.AllHeroFragment;
 import com.allen.loltool.hero_data.fragment.FreeHeroFragment;
@@ -19,9 +24,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
- * Created by Allen on 2015/11/20.
+ * Created by Allen on 2015/11/24.
  */
-public class HeroDataActivity extends AppCompatActivity {
+public class HeroDataFragment extends BaseFragment {
 
     @Bind(R.id.hero_data_tablayout)
     TabLayout heroDataTablayout;
@@ -30,18 +35,19 @@ public class HeroDataActivity extends AppCompatActivity {
 
     private HeroDataFragmentAdapter adapter;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hero_data);
-        ButterKnife.bind(this);
-        setupViewPager();
 
+    public static Fragment newInstance() {
+        HeroDataFragment heroDataFragment = new HeroDataFragment();
+        return heroDataFragment;
     }
 
+    @Nullable
     @Override
-    protected void onStart() {
-        super.onStart();
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_hero_data, container, false);
+        ButterKnife.bind(this, view);
+        setupViewPager();
+        return view;
     }
 
     private void setupViewPager() {
@@ -58,10 +64,21 @@ public class HeroDataActivity extends AppCompatActivity {
         fragments.add(new AllHeroFragment().newInstance());
         fragments.add(new SummonerFragment().newInstance());
         adapter =
-                new HeroDataFragmentAdapter(getSupportFragmentManager(), fragments, titles);
+                new HeroDataFragmentAdapter(getActivity().getSupportFragmentManager(), fragments, titles);
         heroDataViewpager.setAdapter(adapter);
         heroDataViewpager.setOffscreenPageLimit(3);
         heroDataTablayout.setupWithViewPager(heroDataViewpager);
         heroDataTablayout.setTabsFromPagerAdapter(adapter);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
+
+    @Override
+    protected void lazyLoad() {
+
     }
 }

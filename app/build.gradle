@@ -30,4 +30,5 @@ dependencies {
     compile project(':library')
     compile 'com.google.code.gson:gson:2.4'
     compile 'com.nineoldandroids:library:2.4.0'
+    compile 'de.greenrobot:greendao:2.1.0'
 }

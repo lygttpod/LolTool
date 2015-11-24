@@ -58,20 +58,10 @@ public class FreeHeroFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        setUserVisibleHint(true);
-    }
-
-    @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (getUserVisibleHint()) {
             isVisible = true;
-            if (dataEntities.size() <= 0) {
-                getFreeHeroList();
-
-            }
         } else {
             isVisible = false;
         }
@@ -91,7 +81,11 @@ public class FreeHeroFragment extends Fragment {
         ButterKnife.bind(this, view);
         context = getActivity();
         initGridview();
-
+        if (isVisible) {
+            if (dataEntities.size() <= 0) {
+                getFreeHeroList();
+            }
+        }
         return view;
     }
 

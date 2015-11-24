@@ -131,6 +131,7 @@ public class SummonerFragment extends Fragment {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 String response = new String(responseBody);
+                dataEntities.clear();
                 SummonerBean summonerBean = JsonUtils.getObject(response, SummonerBean.class);
 
                 for (DataEntity data : summonerBean.getData()
