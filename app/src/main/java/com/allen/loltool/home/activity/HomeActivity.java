@@ -5,20 +5,14 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.allen.loltool.R;
 import com.allen.loltool.hero_data.activity.HeroDataFragment;
-import com.allen.loltool.hero_data.adapter.HeroDataFragmentAdapter;
-import com.allen.loltool.hero_data.fragment.AllHeroFragment;
-import com.allen.loltool.hero_data.fragment.FreeHeroFragment;
 import com.allen.loltool.hero_data.fragment.SummonerFragment;
 import com.allen.loltool.home.adapter.HomeFragmentAdapter;
-import com.allen.loltool.home.fragment.NewsHomeFragment;
+import com.allen.loltool.news.fragment.NewsHomeFragment;
 import com.allen.loltool.server_list.fragment.ServerListFragment;
+import com.allen.loltool.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,26 +37,36 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         setupViewPager();
+
     }
 
     private void setupViewPager() {
         List<String> titles = new ArrayList<>();
-        titles.add("看资讯");
-        titles.add("查英雄");
-        titles.add("服务器");
+        titles.add("资讯");
+        titles.add("英雄");
+        titles.add("消息");
+        titles.add("我的");
         homeTablayout.setTabMode(TabLayout.MODE_FIXED);
-        homeTablayout.addTab(homeTablayout.newTab().setText(titles.get(0)));
-        homeTablayout.addTab(homeTablayout.newTab().setText(titles.get(1)));
-        homeTablayout.addTab(homeTablayout.newTab().setText(titles.get(2)));
+        for (int i = 0; i < titles.size(); i++) {
+            homeTablayout.addTab(homeTablayout.newTab().setText(titles.get(i)));
+            LogUtil.e("HomeActivity","titles.size()="+titles.size());
+        }
+
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new NewsHomeFragment().newInstance());
         fragments.add(new HeroDataFragment().newInstance());
         fragments.add(new ServerListFragment().newInstance());
+        fragments.add(new SummonerFragment().newInstance());
+
         homeFragmentAdapter =
                 new HomeFragmentAdapter(getSupportFragmentManager(), fragments, titles, HomeActivity.this);
         homeViewpager.setAdapter(homeFragmentAdapter);
-        homeViewpager.setOffscreenPageLimit(3);
         homeTablayout.setupWithViewPager(homeViewpager);
         homeTablayout.setTabsFromPagerAdapter(homeFragmentAdapter);
 

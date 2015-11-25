@@ -1,4 +1,4 @@
-package com.allen.loltool.home.adapter;
+package com.allen.loltool.news.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -9,8 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.allen.loltool.R;
-import com.allen.loltool.common.UrlAddress;
-import com.allen.loltool.home.bean.NewsBean;
+import com.allen.loltool.news.bean.NewsBean;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -60,8 +59,8 @@ public class NewsAdapter extends BaseAdapter {
         viewHolder.newsSummary.setText(listEntities.get(position).getSummary());
         viewHolder.newsPublicationDate.setText(listEntities.get(position).getPublication_date());
         DisplayImageOptions options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.default_l)
-                .showImageOnFail(R.mipmap.default_l).cacheInMemory(true)
+                .showImageOnLoading(R.mipmap.news_image_normal)
+                .showImageOnFail(R.mipmap.news_image_normal).cacheInMemory(true)
                 .cacheOnDisk(true).bitmapConfig(Bitmap.Config.RGB_565).build();
 
         ImageLoader.getInstance()

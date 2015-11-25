@@ -17,8 +17,6 @@ import android.widget.ExpandableListView;
 import com.allen.loltool.R;
 import com.allen.loltool.base.BaseFragment;
 import com.allen.loltool.common.UrlAddress;
-import com.allen.loltool.home.fragment.NewsHomeFragment;
-import com.allen.loltool.server_list.activity.ServerListActivity;
 import com.allen.loltool.server_list.adapter.ServerListAdapter;
 import com.allen.loltool.server_list.bean.ServerListBean;
 import com.allen.loltool.utils.JsonUtils;

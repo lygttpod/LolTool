@@ -1,4 +1,4 @@
-package com.allen.loltool.home.fragment;
+package com.allen.loltool.news.fragment;
 
 import android.content.Context;
 import android.os.Bundle;

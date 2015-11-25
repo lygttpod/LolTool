@@ -4,6 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.allen.loltool.utils.LogUtil;
+
 import java.util.List;
 
 /**
@@ -25,6 +27,7 @@ public class HeroDataFragmentAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
+        LogUtil.e("HeroDataFragmentAdapter","getItem="+position);
         return mFragments.get(position);
     }
 

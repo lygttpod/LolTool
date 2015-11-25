@@ -1,4 +1,4 @@
-package com.allen.loltool.home.bean;
+package com.allen.loltool.news.bean;
 
 import java.util.List;
 

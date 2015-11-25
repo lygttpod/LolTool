@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.allen.loltool.R;
+import com.allen.loltool.base.BaseFragment;
 import com.allen.loltool.common.UrlAddress;
 
 import com.allen.loltool.hero_data.adapter.SummonerAdapter;
@@ -36,7 +37,7 @@ import cz.msebera.android.httpclient.Header;
 /**
  * Created by Allen on 2015/11/20.
  */
-public class SummonerFragment extends Fragment {
+public class SummonerFragment extends BaseFragment {
 
     @Bind(R.id.free_hero_gridview)
     PullToRefreshGridView freeHeroGridview;
@@ -54,27 +55,11 @@ public class SummonerFragment extends Fragment {
         return summonerFragment;
     }
 
-    protected boolean isVisible;//判断是否显示
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (getUserVisibleHint()) {
-            isVisible = true;
-            if (dataEntities.size() <= 0) {
-                getSummonerList();
-
-            }
-        } else {
-            isVisible = false;
-        }
-    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         dataEntities = new ArrayList<>();
-
+        this.context = getActivity();
     }
 
     @Nullable
@@ -82,11 +67,7 @@ public class SummonerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_free_hero, container, false);
         ButterKnife.bind(this, view);
-        context = getActivity();
-        dataEntities = new ArrayList<>();
-
         initGridview();
-
         return view;
     }
 
@@ -181,5 +162,13 @@ public class SummonerFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    @Override
+    protected void lazyLoad() {
+        if (dataEntities.size() <= 0) {
+            getSummonerList();
+
+        }
     }
 }

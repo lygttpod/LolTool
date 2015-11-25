@@ -1,4 +1,4 @@
-package com.allen.loltool.home.fragment;
+package com.allen.loltool.news.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -7,14 +7,17 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.allen.loltool.R;
 import com.allen.loltool.base.BaseFragment;
 import com.allen.loltool.common.UrlAddress;
-import com.allen.loltool.home.adapter.NewsAdapter;
-import com.allen.loltool.home.bean.NewsBean;
+import com.allen.loltool.news.adapter.NewsAdapter;
+import com.allen.loltool.news.bean.NewsBean;
 import com.allen.loltool.utils.JsonUtils;
 import com.allen.loltool.utils.LogUtil;
+import com.allen.loltool.widget.loading.AVLoadingIndicatorView;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -32,10 +35,13 @@ import cz.msebera.android.httpclient.Header;
 public class NewsFragment extends BaseFragment {
     @Bind(R.id.fragment_news_listview)
     PullToRefreshListView fragmentNewsListview;
+    @Bind(R.id.loadingView)
+    AVLoadingIndicatorView loadingView;
     private List<NewsBean.ListEntity> listEntities;
     private NewsAdapter newsAdapter;
     private Context context;
     private String url;
+    private String nextUrl;
     private static final String ARG = "url";
 
     public static Fragment newInstance(String url) {
@@ -66,11 +72,25 @@ public class NewsFragment extends BaseFragment {
     private void initListview() {
         newsAdapter = new NewsAdapter(context, listEntities);
         fragmentNewsListview.setAdapter(newsAdapter);
+        fragmentNewsListview.setMode(PullToRefreshBase.Mode.BOTH);
+        fragmentNewsListview.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                getNewsList(url);
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                getNewsList(nextUrl);
+            }
+        });
     }
 
     @Override
     protected void lazyLoad() {
-        getNewsList(url);
+        if (listEntities.size() <= 0) {
+            getNewsList(url);
+        }
     }
 
     private void getNewsList(String url) {
@@ -81,12 +101,14 @@ public class NewsFragment extends BaseFragment {
             @Override
             public void onStart() {
                 super.onStart();
+                loadingView.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 String response = new String(responseBody);
                 NewsBean newsBean = JsonUtils.getObject(response, NewsBean.class);
+                nextUrl = newsBean.getNext();
                 for (NewsBean.ListEntity list : newsBean.getList()
                         ) {
                     listEntities.add(list);
@@ -102,6 +124,8 @@ public class NewsFragment extends BaseFragment {
             @Override
             public void onFinish() {
                 super.onFinish();
+                loadingView.setVisibility(View.GONE);
+                fragmentNewsListview.onRefreshComplete();
                 newsAdapter.notifyDataSetChanged();
             }
         });

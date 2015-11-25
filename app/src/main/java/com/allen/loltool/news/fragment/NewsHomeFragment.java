@@ -1,5 +1,6 @@
-package com.allen.loltool.home.fragment;
+package com.allen.loltool.news.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -10,7 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.allen.loltool.R;
-import com.allen.loltool.home.adapter.HomeFragmentAdapter;
+import com.allen.loltool.base.BaseFragment;
+import com.allen.loltool.news.adapter.NewsFragmentAdapter;
+import com.allen.loltool.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,19 +24,28 @@ import butterknife.ButterKnife;
 /**
  * Created by Allen on 2015/11/24.
  */
-public class NewsHomeFragment extends Fragment {
+public class NewsHomeFragment extends BaseFragment {
 
     @Bind(R.id.news_home_tablayout)
     TabLayout newsHomeTablayout;
     @Bind(R.id.news_home_viewpager)
     ViewPager newsHomeViewpager;
 
-    private HomeFragmentAdapter homeFragmentAdapter;
-
+    private NewsFragmentAdapter newsFragmentAdapter;
+    private List<String> titles;
+    private List<String> urls;
 
     public static Fragment newInstance() {
         NewsHomeFragment newsHomeFragment = new NewsHomeFragment();
         return newsHomeFragment;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        titles = new ArrayList<>();
+        urls = new ArrayList<>();
+
     }
 
     @Nullable
@@ -45,53 +57,49 @@ public class NewsHomeFragment extends Fragment {
         return view;
     }
 
-    private void setupViewPager() {
-        List<String> titles = new ArrayList<>();
+    private void initData() {
         titles.add("最新");
         titles.add("赛事");
-        titles.add("视频");
         titles.add("娱乐");
         titles.add("攻略");
 
-        List<String> urls = new ArrayList<>();
         urls.add("c12_list_1.shtml");
         urls.add("c73_list_1.shtml");
-        urls.add("http://lol.qq.com/m/act/a20150319lolapp/video.htm");
+        //urls.add("http://lol.qq.com/m/act/a20150319lolapp/video.htm");
         urls.add("c18_list_1.shtml");
         urls.add("c10_list_1.shtml");
+    }
 
+    private void setupViewPager() {
+        if (titles.size() <= 0) {
+            initData();
+        }
         newsHomeTablayout.setTabMode(TabLayout.MODE_FIXED);
 
         List<Fragment> fragments = new ArrayList<>();
         for (int i = 0; i < titles.size(); i++) {
-            if (titles.get(i).toString().equals("视频")){
-//                newsHomeTablayout.addTab(newsHomeTablayout.newTab().setText(titles.get(i)));
-//                fragments.add(new VideoFragment().newInstance(urls.get(i)));
-            }else {
-                newsHomeTablayout.addTab(newsHomeTablayout.newTab().setText(titles.get(i)));
-                fragments.add(new NewsFragment().newInstance(urls.get(i)));
-            }
-
+            newsHomeTablayout.addTab(newsHomeTablayout.newTab().setText(titles.get(i)));
+            fragments.add(new NewsFragment().newInstance(urls.get(i)));
+            LogUtil.e("NewsHomeFragment", "titles.size()=" + titles.size());
         }
 
-        homeFragmentAdapter =
-                new HomeFragmentAdapter(getActivity().getSupportFragmentManager(), fragments, titles, getActivity());
-        newsHomeViewpager.setAdapter(homeFragmentAdapter);
+        newsFragmentAdapter =
+                new NewsFragmentAdapter(getActivity().getSupportFragmentManager(), fragments, titles, getActivity());
+        newsHomeViewpager.setAdapter(newsFragmentAdapter);
         //newsHomeViewpager.setOffscreenPageLimit(3);
         newsHomeTablayout.setupWithViewPager(newsHomeViewpager);
-        newsHomeTablayout.setTabsFromPagerAdapter(homeFragmentAdapter);
+        newsHomeTablayout.setTabsFromPagerAdapter(newsFragmentAdapter);
 
-        for (int i = 0; i < newsHomeTablayout.getTabCount(); i++) {
-            TabLayout.Tab tab = newsHomeTablayout.getTabAt(i);
-            if (tab != null) {
-                tab.setCustomView(homeFragmentAdapter.getTabView(i));
-            }
-        }
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    @Override
+    protected void lazyLoad() {
+
     }
 }

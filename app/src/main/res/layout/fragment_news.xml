@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <com.handmark.pulltorefresh.library.PullToRefreshListView
@@ -18,5 +19,14 @@
         android:headerDividersEnabled="false"
         android:scrollbars="none"
         android:smoothScrollbar="true"></com.handmark.pulltorefresh.library.PullToRefreshListView>
+    <com.allen.loltool.widget.loading.AVLoadingIndicatorView
+        android:id="@+id/loadingView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone"
+        app:indicator="LineSpinFadeLoader"
+        app:indicator_color="@color/colorAccent" />
 
-</LinearLayout>
+</RelativeLayout>

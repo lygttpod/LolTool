@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.allen.loltool.R;
+import com.allen.loltool.base.BaseFragment;
 import com.allen.loltool.common.UrlAddress;
 import com.allen.loltool.hero_data.adapter.FreeHeroAdapter;
 import com.allen.loltool.hero_data.bean.FreeHeroBean;
@@ -35,7 +36,7 @@ import cz.msebera.android.httpclient.Header;
 /**
  * Created by Allen on 2015/11/20.
  */
-public class FreeHeroFragment extends Fragment {
+public class FreeHeroFragment extends BaseFragment {
 
 
     @Bind(R.id.free_hero_gridview)
@@ -49,21 +50,16 @@ public class FreeHeroFragment extends Fragment {
     private Context context;
     private List<FreeHeroBean.DataEntity> dataEntities;
 
-
-    protected boolean isVisible;//判断fragment是否显示
-
     public static Fragment newInstance() {
         FreeHeroFragment freeHeroFragment = new FreeHeroFragment();
         return freeHeroFragment;
     }
 
+
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (getUserVisibleHint()) {
-            isVisible = true;
-        } else {
-            isVisible = false;
+    protected void lazyLoad() {
+        if (dataEntities.size() <= 0) {
+            getFreeHeroList();
         }
     }
 
@@ -81,11 +77,6 @@ public class FreeHeroFragment extends Fragment {
         ButterKnife.bind(this, view);
         context = getActivity();
         initGridview();
-        if (isVisible) {
-            if (dataEntities.size() <= 0) {
-                getFreeHeroList();
-            }
-        }
         return view;
     }
 

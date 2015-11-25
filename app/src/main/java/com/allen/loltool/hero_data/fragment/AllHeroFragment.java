@@ -16,6 +16,7 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.allen.loltool.R;
+import com.allen.loltool.base.BaseFragment;
 import com.allen.loltool.common.UrlAddress;
 import com.allen.loltool.hero_data.adapter.AllHeroAdapter;
 import com.allen.loltool.hero_data.bean.AllHeroBean;
@@ -38,7 +39,7 @@ import cz.msebera.android.httpclient.Header;
 /**
  * Created by Allen on 2015/11/20.
  */
-public class AllHeroFragment extends Fragment {
+public class AllHeroFragment extends BaseFragment {
 
     @Bind(R.id.free_hero_gridview)
     PullToRefreshGridView freeHeroGridview;
@@ -59,19 +60,11 @@ public class AllHeroFragment extends Fragment {
         return allHeroFragment;
     }
 
-    protected boolean isVisible;//判断是否显示
-
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (getUserVisibleHint()) {
-            isVisible = true;
-            if (dataEntities.size() <= 0) {
-                getAllHeroList(UrlAddress.all_hero_url);
+    protected void lazyLoad() {
+        if (dataEntities.size() <= 0) {
+            getAllHeroList(UrlAddress.all_hero_url);
 
-            }
-        } else {
-            isVisible = false;
         }
     }
 
@@ -79,6 +72,7 @@ public class AllHeroFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         dataEntities = new ArrayList<>();
+        this.context = getActivity();
 
     }
 
@@ -88,8 +82,6 @@ public class AllHeroFragment extends Fragment {
         View view = inflater.inflate(R.layout.activity_free_hero, container, false);
         ButterKnife.bind(this, view);
         initHandler();
-        context = getActivity();
-        dataEntities = new ArrayList<>();
         initGridview();
 
         return view;
