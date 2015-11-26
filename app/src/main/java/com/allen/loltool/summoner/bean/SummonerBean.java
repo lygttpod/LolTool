@@ -1,4 +1,4 @@
-package com.allen.loltool.hero_data.bean;
+package com.allen.loltool.summoner.bean;
 
 import java.util.List;
 

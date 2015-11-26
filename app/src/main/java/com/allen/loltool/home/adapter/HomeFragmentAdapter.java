@@ -58,7 +58,7 @@ public class HomeFragmentAdapter extends FragmentPagerAdapter {
         TextView tv = (TextView) v.findViewById(R.id.tab_title);
         tv.setText(mTitles.get(position));
         ImageView img = (ImageView) v.findViewById(R.id.tab_image);
-        //img.setImageResource(imageResId[position]);
+        img.setImageResource(R.mipmap.list_img);
         return v;
     }
 }

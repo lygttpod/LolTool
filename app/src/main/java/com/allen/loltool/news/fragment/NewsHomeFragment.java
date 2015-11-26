@@ -9,11 +9,16 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.allen.loltool.R;
 import com.allen.loltool.base.BaseFragment;
 import com.allen.loltool.news.adapter.NewsFragmentAdapter;
+import com.allen.loltool.utils.DisplayUtil;
 import com.allen.loltool.utils.LogUtil;
+import com.allen.loltool.widget.bannnerpager.BannerPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +39,8 @@ public class NewsHomeFragment extends BaseFragment {
     private NewsFragmentAdapter newsFragmentAdapter;
     private List<String> titles;
     private List<String> urls;
+    private List<Fragment> fragments;
+
 
     public static Fragment newInstance() {
         NewsHomeFragment newsHomeFragment = new NewsHomeFragment();
@@ -45,7 +52,7 @@ public class NewsHomeFragment extends BaseFragment {
         super.onAttach(context);
         titles = new ArrayList<>();
         urls = new ArrayList<>();
-
+        fragments = new ArrayList<>();
     }
 
     @Nullable
@@ -53,6 +60,10 @@ public class NewsHomeFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_news_home, container, false);
         ButterKnife.bind(this, view);
+        if (fragments.size() <= 0) {
+            initTab();
+        }
+
         setupViewPager();
         return view;
     }
@@ -65,28 +76,26 @@ public class NewsHomeFragment extends BaseFragment {
 
         urls.add("c12_list_1.shtml");
         urls.add("c73_list_1.shtml");
-        //urls.add("http://lol.qq.com/m/act/a20150319lolapp/video.htm");
         urls.add("c18_list_1.shtml");
         urls.add("c10_list_1.shtml");
     }
 
-    private void setupViewPager() {
-        if (titles.size() <= 0) {
-            initData();
-        }
+    private void initTab() {
         newsHomeTablayout.setTabMode(TabLayout.MODE_FIXED);
 
-        List<Fragment> fragments = new ArrayList<>();
         for (int i = 0; i < titles.size(); i++) {
             newsHomeTablayout.addTab(newsHomeTablayout.newTab().setText(titles.get(i)));
             fragments.add(new NewsFragment().newInstance(urls.get(i)));
-            LogUtil.e("NewsHomeFragment", "titles.size()=" + titles.size());
         }
+        LogUtil.e("NewsHomeFragment", "titles.size()=" + titles.size());
+    }
+
+    private void setupViewPager() {
 
         newsFragmentAdapter =
                 new NewsFragmentAdapter(getActivity().getSupportFragmentManager(), fragments, titles, getActivity());
         newsHomeViewpager.setAdapter(newsFragmentAdapter);
-        //newsHomeViewpager.setOffscreenPageLimit(3);
+        newsHomeViewpager.setOffscreenPageLimit(3);
         newsHomeTablayout.setupWithViewPager(newsHomeViewpager);
         newsHomeTablayout.setTabsFromPagerAdapter(newsFragmentAdapter);
 
@@ -100,6 +109,10 @@ public class NewsHomeFragment extends BaseFragment {
 
     @Override
     protected void lazyLoad() {
-
+        if (titles.size() <= 0) {
+            initData();
+        }
     }
+
+
 }

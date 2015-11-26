@@ -10,7 +10,7 @@ import com.allen.loltool.R;
 import com.allen.loltool.hero_data.adapter.HeroDataFragmentAdapter;
 import com.allen.loltool.hero_data.fragment.AllHeroFragment;
 import com.allen.loltool.hero_data.fragment.FreeHeroFragment;
-import com.allen.loltool.hero_data.fragment.SummonerFragment;
+import com.allen.loltool.summoner.fragment.SummonerFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,19 +48,16 @@ public class HeroDataActivity extends AppCompatActivity {
         List<String> titles = new ArrayList<>();
         titles.add("周免英雄");
         titles.add("全部英雄");
-        titles.add("召唤师技能");
         heroDataTablayout.setTabMode(TabLayout.MODE_FIXED);
         heroDataTablayout.addTab(heroDataTablayout.newTab().setText(titles.get(0)));
         heroDataTablayout.addTab(heroDataTablayout.newTab().setText(titles.get(1)));
-        heroDataTablayout.addTab(heroDataTablayout.newTab().setText(titles.get(2)));
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new FreeHeroFragment().newInstance());
         fragments.add(new AllHeroFragment().newInstance());
-        fragments.add(new SummonerFragment().newInstance());
         adapter =
                 new HeroDataFragmentAdapter(getSupportFragmentManager(), fragments, titles);
         heroDataViewpager.setAdapter(adapter);
-        heroDataViewpager.setOffscreenPageLimit(3);
+        heroDataViewpager.setOffscreenPageLimit(2);
         heroDataTablayout.setupWithViewPager(heroDataViewpager);
         heroDataTablayout.setTabsFromPagerAdapter(adapter);
     }

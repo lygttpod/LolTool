@@ -1,24 +1,19 @@
-package com.allen.loltool.hero_data.fragment;
+package com.allen.loltool.summoner.activity;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.view.LayoutInflater;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.allen.loltool.R;
-import com.allen.loltool.base.BaseFragment;
 import com.allen.loltool.common.UrlAddress;
-
-import com.allen.loltool.hero_data.adapter.SummonerAdapter;
-import com.allen.loltool.hero_data.bean.SummonerBean;
-import com.allen.loltool.hero_data.bean.SummonerBean.DataEntity;
+import com.allen.loltool.summoner.adapter.SummonerAdapter;
+import com.allen.loltool.summoner.bean.SummonerBean;
 import com.allen.loltool.utils.JsonUtils;
 import com.allen.loltool.utils.ToastUtils;
 import com.allen.loltool.widget.loading.AVLoadingIndicatorView;
@@ -35,46 +30,52 @@ import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
 /**
- * Created by Allen on 2015/11/20.
+ * Created by Allen on 2015/11/26.
  */
-public class SummonerFragment extends BaseFragment {
+public class SummonerActivity extends AppCompatActivity {
 
     @Bind(R.id.free_hero_gridview)
     PullToRefreshGridView freeHeroGridview;
     @Bind(R.id.loadingView)
     AVLoadingIndicatorView loadingView;
+
     private Context context;
 
     private SummonerAdapter summonerAdapter;
-    private List<DataEntity> dataEntities;
+    private List<SummonerBean.DataEntity> dataEntities;
     private AsyncHttpClient asyncHttpClient;
 
-
-    public static Fragment newInstance() {
-        SummonerFragment summonerFragment = new SummonerFragment();
-        return summonerFragment;
-    }
-
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_summoner);
+        ButterKnife.bind(this);
         dataEntities = new ArrayList<>();
-        this.context = getActivity();
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_free_hero, container, false);
-        ButterKnife.bind(this, view);
+        this.context = SummonerActivity.this;
+        initToolbar();
         initGridview();
-        return view;
     }
 
     @Override
-    public void onStart() {
+    protected void onStart() {
         super.onStart();
+        if (dataEntities.size() <= 0) {
+            getSummonerList();
 
+        }
+    }
+
+    private void initToolbar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("召唤师技能");
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.mipmap.titlebar_leftarrow_back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void initGridview() {
@@ -115,7 +116,7 @@ public class SummonerFragment extends BaseFragment {
                 dataEntities.clear();
                 SummonerBean summonerBean = JsonUtils.getObject(response, SummonerBean.class);
 
-                for (DataEntity data : summonerBean.getData()
+                for (SummonerBean.DataEntity data : summonerBean.getData()
                         ) {
                     dataEntities.add(data);
                 }
@@ -156,19 +157,5 @@ public class SummonerFragment extends BaseFragment {
         });
         builder.create().show();
 
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
-    }
-
-    @Override
-    protected void lazyLoad() {
-        if (dataEntities.size() <= 0) {
-            getSummonerList();
-
-        }
     }
 }

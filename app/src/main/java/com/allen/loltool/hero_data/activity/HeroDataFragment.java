@@ -15,9 +15,6 @@ import com.allen.loltool.base.BaseFragment;
 import com.allen.loltool.hero_data.adapter.HeroDataFragmentAdapter;
 import com.allen.loltool.hero_data.fragment.AllHeroFragment;
 import com.allen.loltool.hero_data.fragment.FreeHeroFragment;
-import com.allen.loltool.hero_data.fragment.SummonerFragment;
-import com.allen.loltool.news.fragment.NewsFragment;
-import com.allen.loltool.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +46,12 @@ public class HeroDataFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_hero_data, container, false);
         ButterKnife.bind(this, view);
+        if (hero_titles.size() <= 0) {
+            initData();
+        }
+        if (fragments.size() <= 0) {
+            initTab();
+        }
         setupViewPager();
         return view;
     }
@@ -71,27 +74,30 @@ public class HeroDataFragment extends BaseFragment {
     private void initData() {
         hero_titles.add("周免英雄");
         hero_titles.add("全部英雄");
-        hero_titles.add("召唤师技能");
+    }
+
+    private void initFragment() {
+        if (fragments.size() <= 0) {
+            fragments.add(new FreeHeroFragment().newInstance());
+            fragments.add(new AllHeroFragment().newInstance());
+        }
 
     }
 
-    private void setupViewPager() {
-        if (hero_titles.size()<=0){
-            initData();
-        }
+    private void initTab() {
         heroDataTablayout.setTabMode(TabLayout.MODE_FIXED);
         for (int i = 0; i < hero_titles.size(); i++) {
             heroDataTablayout.addTab(heroDataTablayout.newTab().setText(hero_titles.get(i)));
-            LogUtil.e("HeroDataFragment", "titles.size()=" + hero_titles.size());
         }
-        fragments.add(new FreeHeroFragment().newInstance());
-        fragments.add(new AllHeroFragment().newInstance());
-        fragments.add(new SummonerFragment().newInstance());
+        initFragment();
+    }
+
+    private void setupViewPager() {
 
         adapter =
                 new HeroDataFragmentAdapter(getActivity().getSupportFragmentManager(), fragments, hero_titles);
         heroDataViewpager.setAdapter(adapter);
-        heroDataViewpager.setOffscreenPageLimit(3);
+        heroDataViewpager.setOffscreenPageLimit(2);
         heroDataTablayout.setupWithViewPager(heroDataViewpager);
         heroDataTablayout.setTabsFromPagerAdapter(adapter);
     }

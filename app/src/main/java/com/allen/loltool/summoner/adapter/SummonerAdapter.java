@@ -1,4 +1,4 @@
-package com.allen.loltool.hero_data.adapter;
+package com.allen.loltool.summoner.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -10,8 +10,7 @@ import android.widget.TextView;
 
 import com.allen.loltool.R;
 import com.allen.loltool.common.UrlAddress;
-import com.allen.loltool.hero_data.bean.SummonerBean;
-import com.allen.loltool.hero_data.bean.SummonerBean.DataEntity;
+import com.allen.loltool.summoner.bean.SummonerBean.DataEntity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 

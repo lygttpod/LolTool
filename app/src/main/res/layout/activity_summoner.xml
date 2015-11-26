@@ -5,10 +5,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include
+        android:id="@+id/toolbar_summoner"
+        layout="@layout/app_toolbar" />
+
     <com.handmark.pulltorefresh.library.PullToRefreshGridView
         android:id="@+id/free_hero_gridview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar_summoner"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:columnWidth="80dp"
