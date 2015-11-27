@@ -44,9 +44,9 @@ public class HeroFragment extends BaseFragment {
     private FragmentHeroAdapter fragmentHeroAdapter;
 
     private String[] imgurls = {
-            "http://www.baidu.com/img/bdlogo.png",
-            "http://b.hiphotos.baidu.com/news/q%3D100/sign=32bf684cf203918fd1d139ca613c264b/3b87e950352ac65c41a059dffef2b21192138af0.jpg",
-            "http://www.baidu.com/img/bdlogo.png"};
+            "http://img0.imgtn.bdimg.com/it/u=1980334205,2364229157&fm=21&gp=0.jpg",
+            "http://img4.imgtn.bdimg.com/it/u=3092090216,1674445734&fm=21&gp=0.jpg",
+            "http://img5.imgtn.bdimg.com/it/u=2117026044,3493028955&fm=21&gp=0.jpg"};
 
 
     public static Fragment newInstance() {
@@ -59,16 +59,11 @@ public class HeroFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_hero, container, false);
         ButterKnife.bind(this, view);
-        initToolbar(view);
         showAdvertise(imgurls);
         init();
         return view;
     }
 
-    private void initToolbar(View view) {
-        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        toolbar.setTitle("英雄");
-    }
 
     private void init() {
         fragmentHeroAdapter = new FragmentHeroAdapter(getActivity());

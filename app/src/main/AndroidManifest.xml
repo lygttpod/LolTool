@@ -27,6 +27,7 @@
         <activity android:name=".hero_details.activity.HeroDetailsActivity"></activity>
         <activity android:name=".hero_data.activity.HeroDataActivity" />
         <activity android:name=".summoner.activity.SummonerActivity"></activity>
+        <activity android:name=".news.activity.NewsDetailsActivity"></activity>
     </application>
 
 </manifest>

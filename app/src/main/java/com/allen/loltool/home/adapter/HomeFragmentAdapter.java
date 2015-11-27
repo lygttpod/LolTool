@@ -18,23 +18,14 @@ import java.util.List;
  */
 public class HomeFragmentAdapter extends FragmentPagerAdapter {
     private List<Fragment> mFragments;
-    private List<String> mTitles;
     private Context mContext;
 
-    public HomeFragmentAdapter(FragmentManager fm) {
-        super(fm);
-    }
+    private String[] tabs = {"资讯", "英雄", "消息", "我的"};
+    private int[] imgId = {R.mipmap.tab_news_checked, R.mipmap.tab_friend_checked, R.mipmap.tab_discovery_checked, R.mipmap.tab_me_checked};
 
-    public HomeFragmentAdapter(FragmentManager fm, List<Fragment> mFragments, List<String> mTitles) {
+    public HomeFragmentAdapter(FragmentManager fm, List<Fragment> mFragments, Context mContext) {
         super(fm);
         this.mFragments = mFragments;
-        this.mTitles = mTitles;
-    }
-
-    public HomeFragmentAdapter(FragmentManager fm, List<Fragment> mFragments, List<String> mTitles, Context mContext) {
-        super(fm);
-        this.mFragments = mFragments;
-        this.mTitles = mTitles;
         this.mContext = mContext;
     }
 
@@ -45,20 +36,16 @@ public class HomeFragmentAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return mFragments.size();
+        return tabs.length;
     }
 
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return mTitles.get(position);
-    }
 
     public View getTabView(int position) {
         View v = LayoutInflater.from(mContext).inflate(R.layout.home_tab_item, null);
         TextView tv = (TextView) v.findViewById(R.id.tab_title);
-        tv.setText(mTitles.get(position));
+        tv.setText(tabs[position]);
         ImageView img = (ImageView) v.findViewById(R.id.tab_image);
-        img.setImageResource(R.mipmap.list_img);
+        img.setImageResource(imgId[position]);
         return v;
     }
 }

@@ -18,9 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         app:tabBackground="@color/tab_bg"
-        app:tabIndicatorHeight="0dp"
-        app:tabSelectedTextColor="@color/colorAccent"
-        app:tabTextAppearance="@style/HomeTabLayout"
+        app:tabIndicatorHeight="2dp"
         app:tabTextColor="@color/gray" />
 
 </RelativeLayout>

@@ -1,21 +1,25 @@
 package com.allen.loltool.news.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.allen.loltool.R;
 import com.allen.loltool.base.BaseFragment;
 import com.allen.loltool.common.UrlAddress;
+import com.allen.loltool.news.activity.NewsDetailsActivity;
 import com.allen.loltool.news.adapter.NewsAdapter;
 import com.allen.loltool.news.bean.NewsBean;
 import com.allen.loltool.utils.JsonUtils;
 import com.allen.loltool.utils.LogUtil;
+import com.allen.loltool.utils.ToastUtils;
 import com.allen.loltool.widget.loading.AVLoadingIndicatorView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -82,6 +86,17 @@ public class NewsFragment extends BaseFragment {
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
                 getNewsList(nextUrl);
+            }
+        });
+        fragmentNewsListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //ToastUtils.showShort(getActivity(),listEntities.get(position-1).getArticle_url());
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), NewsDetailsActivity.class);
+                intent.putExtra("article_url",listEntities.get(position-1).getArticle_url());
+                startActivity(intent);
+                //listEntities.get(position).getArticle_url();
             }
         });
     }
