@@ -1,25 +1,18 @@
 package com.allen.loltool.home.activity;
 
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.widget.LinearLayout;
 
 import com.allen.loltool.R;
 import com.allen.loltool.hero.fragment.HeroFragment;
 import com.allen.loltool.message.fragment.MessageFragment;
 import com.allen.loltool.mine.fragment.MineFragment;
-import com.allen.loltool.summoner.fragment.SummonerFragment;
-import com.allen.loltool.home.adapter.HomeFragmentAdapter;
 import com.allen.loltool.news.fragment.NewsHomeFragment;
-import com.allen.loltool.server_list.fragment.ServerListFragment;
-import com.allen.loltool.utils.LogUtil;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.allen.loltool.widget.BottomMenu.TabBottom;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -28,62 +21,76 @@ import butterknife.ButterKnife;
  * Created by Allen on 2015/11/24.
  */
 public class HomeActivity extends AppCompatActivity {
-    @Bind(R.id.home_viewpager)
-    ViewPager homeViewpager;
-    @Bind(R.id.home_tablayout)
-    TabLayout homeTablayout;
 
 
-    private HomeFragmentAdapter homeFragmentAdapter;
+    @Bind(R.id.main_content)
+    LinearLayout mainContent;
+    @Bind(R.id.tab_bottom)
+    TabBottom tabBottom;
 
-    private Fragment[] fragment = {new NewsHomeFragment().newInstance(),
-            new HeroFragment().newInstance(),
-            new MessageFragment().newInstance(),
-            new MineFragment().newInstance()};
-    private List<Fragment> fragments;
-    private List<String> titles;
+    private FragmentTransaction ft;
+    private FragmentManager fm;
 
+    NewsHomeFragment newsHomeFragment;
+    HeroFragment heroFragment;
+    MessageFragment messageFragment;
+    MineFragment mineFragment;
+
+    private Fragment[] fragment = {NewsHomeFragment.newInstance(),
+            HeroFragment.newInstance(),
+            MessageFragment.newInstance(),
+            MineFragment.newInstance()};
+    private Fragment fragments[] = {newsHomeFragment, heroFragment, messageFragment, mineFragment};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
-        titles = new ArrayList<>();
-        fragments = new ArrayList<>();
-        initFragments();
-        setupViewPager();
+        showFragment(0);
+        tabBottom.setOnClickListener(new TabBottom.TabOnClickListener() {
+            @Override
+            public void Tab_1_Listener() {
+                showFragment(0);
+            }
+
+            @Override
+            public void Tab_2_Listener() {
+                showFragment(1);
+            }
+
+            @Override
+            public void Tab_3_Listener() {
+                showFragment(2);
+            }
+
+            @Override
+            public void Tab_4_Listener() {
+                showFragment(3);
+            }
+        });
+
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    private void initFragments() {
-        for (int i = 0; i < fragment.length; i++) {
-            fragments.add(fragment[i]);
+    private void showFragment(int index) {
+        fm = getSupportFragmentManager();
+        ft = fm.beginTransaction();
+        hideFragment();
+        if (fragments[index] != null) {
+            ft.show(fragments[index]);
+        } else {
+            fragments[index] = fragment[index];
+            ft.add(R.id.main_content, fragments[index]);
         }
-
+        ft.commit();
     }
 
-    private void setupViewPager() {
-        homeFragmentAdapter =
-                new HomeFragmentAdapter(getSupportFragmentManager(), fragments, HomeActivity.this);
-        homeViewpager.setAdapter(homeFragmentAdapter);
-        homeViewpager.setOffscreenPageLimit(4);
-        homeTablayout.setTabMode(TabLayout.MODE_FIXED);
-        homeTablayout.setupWithViewPager(homeViewpager);
-        homeTablayout.setTabsFromPagerAdapter(homeFragmentAdapter);
-
-        for (int i = 0; i < 4; i++) {
-            TabLayout.Tab tab = homeTablayout.getTabAt(i);
-            if (tab != null) {
-                tab.setCustomView(homeFragmentAdapter.getTabView(i));
+    private void hideFragment() {
+        for (int i = 0; i < fragments.length; i++) {
+            if (fragments[i] != null) {
+                ft.hide(fragments[i]);
             }
         }
     }
-
-
 }

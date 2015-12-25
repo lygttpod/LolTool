@@ -15,7 +15,7 @@ import com.allen.loltool.message.fragment.MessageFragment;
  * Created by Allen on 2015/11/27.
  */
 public class MineFragment extends BaseFragment {
-    public static Fragment newInstance() {
+    public  static MineFragment newInstance() {
         MineFragment mineFragment = new MineFragment();
         return mineFragment;
     }

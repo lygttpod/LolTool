@@ -5,20 +5,32 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/home_viewpager"
+    <!--<android.support.v4.view.ViewPager-->
+    <!--android:id="@+id/home_viewpager"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_above="@+id/home_tablayout" />-->
+
+    <!--<android.support.design.widget.TabLayout-->
+    <!--android:id="@+id/home_tablayout"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--app:tabBackground="@color/tab_bg"-->
+    <!--app:tabIndicatorHeight="2dp"-->
+    <!--app:tabTextColor="@color/gray" />-->
+
+    <LinearLayout
+        android:id="@+id/main_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/home_tablayout"
-        />
+        android:layout_above="@+id/tab_bottom"
+        android:orientation="horizontal" />
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/home_tablayout"
+    <com.allen.loltool.widget.BottomMenu.TabBottom
+        android:id="@+id/tab_bottom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        app:tabBackground="@color/tab_bg"
-        app:tabIndicatorHeight="2dp"
-        app:tabTextColor="@color/gray" />
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

@@ -42,7 +42,7 @@ public class NewsHomeFragment extends BaseFragment {
     private List<Fragment> fragments;
 
 
-    public static Fragment newInstance() {
+    public static NewsHomeFragment newInstance() {
         NewsHomeFragment newsHomeFragment = new NewsHomeFragment();
         return newsHomeFragment;
     }
@@ -53,6 +53,10 @@ public class NewsHomeFragment extends BaseFragment {
         titles = new ArrayList<>();
         urls = new ArrayList<>();
         fragments = new ArrayList<>();
+
+        if (titles.size() <= 0) {
+            initData();
+        }
     }
 
     @Nullable

@@ -16,7 +16,7 @@ import com.allen.loltool.hero.fragment.HeroFragment;
  */
 public class MessageFragment extends BaseFragment {
 
-    public static Fragment newInstance() {
+    public  static MessageFragment newInstance() {
         MessageFragment messageFragment = new MessageFragment();
         return messageFragment;
     }

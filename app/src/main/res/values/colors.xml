@@ -13,4 +13,6 @@
     <!-- end -->
     <color name="tab_bg">#eee</color>
     <color name="w">#FFFFFF</color>
+
+    <color name="home_tab_bg">#30333B</color>
 </resources>

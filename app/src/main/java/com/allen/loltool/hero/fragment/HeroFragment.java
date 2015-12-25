@@ -49,7 +49,7 @@ public class HeroFragment extends BaseFragment {
             "http://img5.imgtn.bdimg.com/it/u=2117026044,3493028955&fm=21&gp=0.jpg"};
 
 
-    public static Fragment newInstance() {
+    public static HeroFragment newInstance() {
         HeroFragment heroFragment = new HeroFragment();
         return heroFragment;
     }
