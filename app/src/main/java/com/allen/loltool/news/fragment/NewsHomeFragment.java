@@ -41,6 +41,8 @@ public class NewsHomeFragment extends BaseFragment {
     private List<String> urls;
     private List<Fragment> fragments;
 
+    private View view;
+
 
     public static NewsHomeFragment newInstance() {
         NewsHomeFragment newsHomeFragment = new NewsHomeFragment();
@@ -62,12 +64,12 @@ public class NewsHomeFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_news_home, container, false);
+        view = inflater.inflate(R.layout.fragment_news_home, null);
+
         ButterKnife.bind(this, view);
         if (fragments.size() <= 0) {
             initTab();
         }
-
         setupViewPager();
         return view;
     }
@@ -97,7 +99,7 @@ public class NewsHomeFragment extends BaseFragment {
     private void setupViewPager() {
 
         newsFragmentAdapter =
-                new NewsFragmentAdapter(getActivity().getSupportFragmentManager(), fragments, titles, getActivity());
+                new NewsFragmentAdapter(getFragmentManager(), fragments, titles, getActivity());
         newsHomeViewpager.setAdapter(newsFragmentAdapter);
         newsHomeViewpager.setOffscreenPageLimit(3);
         newsHomeTablayout.setupWithViewPager(newsHomeViewpager);

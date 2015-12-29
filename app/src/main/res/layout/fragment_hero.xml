@@ -4,28 +4,33 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
-    <RelativeLayout
+    <com.daimajia.slider.library.SliderLayout
+        android:id="@+id/slider"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="200dp" />
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content">-->
 
-        <com.allen.loltool.widget.bannnerpager.BannerPager
-            android:id="@+id/bannerpager"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+    <!--<com.allen.loltool.widget.bannnerpager.BannerPager-->
+    <!--android:id="@+id/bannerpager"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content" />-->
+    <!-- -->
 
-        <LinearLayout
-            android:id="@+id/bannerpager_ll_adtip"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/bannerpager"
-            android:gravity="right"
-            android:orientation="horizontal"
-            android:paddingBottom="8dp" />
-    </RelativeLayout>
+    <!--<LinearLayout-->
+    <!--android:id="@+id/bannerpager_ll_adtip"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignBottom="@+id/bannerpager"-->
+    <!--android:gravity="right"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:paddingBottom="8dp" />-->
+    <!--</RelativeLayout>-->
 
     <ListView
         android:id="@+id/fragment_hero_listview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></ListView>
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp" />
 </LinearLayout>

@@ -3,9 +3,7 @@ package com.allen.loltool.hero.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,18 +15,28 @@ import android.widget.RelativeLayout;
 
 import com.allen.loltool.R;
 import com.allen.loltool.base.BaseFragment;
+import com.allen.loltool.common.UrlAddress;
 import com.allen.loltool.hero.adapter.FragmentHeroAdapter;
+import com.allen.loltool.hero.bean.ADBean;
+import com.allen.loltool.hero.bean.ImageBean;
 import com.allen.loltool.hero_data.activity.HeroDataActivity;
 import com.allen.loltool.server_list.activity.ServerListActivity;
 import com.allen.loltool.summoner.activity.SummonerActivity;
 import com.allen.loltool.utils.DisplayUtil;
-import com.allen.loltool.widget.bannnerpager.BannerPager;
+import com.allen.loltool.utils.JsonUtils;
+import com.daimajia.slider.library.Animations.DescriptionAnimation;
+import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.TextSliderView;
+import com.daimajia.slider.library.Transformers.AccordionTransformer;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by Allen on 2015/11/26.
@@ -37,17 +45,19 @@ public class HeroFragment extends BaseFragment {
 
     @Bind(R.id.fragment_hero_listview)
     ListView fragmentHeroListview;
-    @Bind(R.id.bannerpager)
-    BannerPager mBannerPager;
-    @Bind(R.id.bannerpager_ll_adtip)
-    LinearLayout mAdTipLayout;
+    @Bind(R.id.slider)
+    SliderLayout slider;
+
     private FragmentHeroAdapter fragmentHeroAdapter;
 
-    private String[] imgurls = {
-            "http://img0.imgtn.bdimg.com/it/u=1980334205,2364229157&fm=21&gp=0.jpg",
-            "http://img4.imgtn.bdimg.com/it/u=3092090216,1674445734&fm=21&gp=0.jpg",
-            "http://img5.imgtn.bdimg.com/it/u=2117026044,3493028955&fm=21&gp=0.jpg"};
+    private AsyncHttpClient client;
 
+    private String[] imgurls = {
+            "http://ossweb-img.qq.com/upload/qqtalk/news/201512/291041398094322_282.jpg",
+            "http://ossweb-img.qq.com/upload/qqtalk/news/201512/28170749800758_282.jpg",
+            "http://ossweb-img.qq.com/upload/qqtalk/news/201512/151241143579294_480.jpg"};
+
+    private List<ImageBean> ad_imgurl = new ArrayList<>();
 
     public static HeroFragment newInstance() {
         HeroFragment heroFragment = new HeroFragment();
@@ -59,8 +69,10 @@ public class HeroFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_hero, container, false);
         ButterKnife.bind(this, view);
-        showAdvertise(imgurls);
+//        showAdvertise(imgurls);
+
         init();
+        sendRequest();
         return view;
     }
 
@@ -88,10 +100,50 @@ public class HeroFragment extends BaseFragment {
         });
     }
 
+    private void sendRequest() {
+        client = new AsyncHttpClient();
+        client.get(getActivity(), UrlAddress.AD_url, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                ADBean adBean = JsonUtils.getObject(new String(responseBody), ADBean.class);
+                for (ADBean.ListEntity listEntity : adBean.getList()) {
+                    ImageBean imageBean = new ImageBean(listEntity.getTitle(), listEntity.getImage_url_big());
+                    ad_imgurl.add(imageBean);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                showAd(ad_imgurl);
+            }
+        });
+    }
+
+    private void showAd(List<ImageBean> imageBeans) {
+        for (int i = 0; i < imageBeans.size(); i++) {
+            TextSliderView textSliderView = new TextSliderView(getActivity());
+            textSliderView
+                    .description(imageBeans.get(i).getTitle())
+                    .image(imageBeans.get(i).getImg());
+
+            slider.addSlider(textSliderView);
+            slider.setCustomAnimation(new DescriptionAnimation());
+            slider.setPagerTransformer(false, new AccordionTransformer());
+        }
+
+    }
+
     @Override
     protected void lazyLoad() {
 
     }
+
 
     @Override
     public void onDestroyView() {
@@ -99,62 +151,9 @@ public class HeroFragment extends BaseFragment {
         ButterKnife.unbind(this);
     }
 
-    private void showAdvertise(String[] imgurls) {
-        if (imgurls == null || imgurls.length == 0) {
-            return;
-        }
-        // 设置mGallery的大小
-        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mBannerPager
-                .getLayoutParams();
-
-        params.width = DisplayUtil.getDisplayWidth(getActivity());
-        params.height = params.width * 9 / 16;
-        mBannerPager.setLayoutParams(params);
-        mAdTipLayout.removeAllViews();
-        List<String> urls = new ArrayList<String>();
-        for (int i = 0; i < imgurls.length && i < 6; i++) {
-
-            ImageView view = new ImageView(getActivity());
-            view.setLayoutParams(new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            view.setClickable(false);
-            view.setFocusableInTouchMode(false);
-            view.setFocusable(false);
-            view.setImageResource(R.mipmap.ad_tip_normal);
-            view.setPadding(8, 0, 8, 0);
-            mAdTipLayout.addView(view);
-            urls.add(imgurls[i]);
-        }
-
-        if (mAdTipLayout.getChildAt(0) != null) {
-            ((ImageView) mAdTipLayout.getChildAt(0))
-                    .setImageResource(R.mipmap.ad_tip_selected);
-        }
-        mBannerPager.setUrls(urls);
-
-        mBannerPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrollStateChanged(int arg0) {
-
-            }
-
-            @Override
-            public void onPageScrolled(int arg0, float arg1, int arg2) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                int length = mAdTipLayout.getChildCount();
-                for (int i = 0; i < length; i++) {
-                    ((ImageView) mAdTipLayout.getChildAt(i))
-                            .setImageResource(R.mipmap.ad_tip_normal);
-                }
-                position = position % length;
-                ((ImageView) mAdTipLayout.getChildAt(position))
-                        .setImageResource(R.mipmap.ad_tip_selected);
-            }
-
-        });
+    @Override
+    public void onStop() {
+        slider.stopAutoCycle();
+        super.onStop();
     }
 }

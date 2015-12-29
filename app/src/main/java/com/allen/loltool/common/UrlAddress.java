@@ -12,4 +12,7 @@ public class UrlAddress {
     public static String summoner_url = "http://spenly.com/lol/summoner";
 
     public static String newsbase_url = "http://qt.qq.com/static/pages/news/phone/";
+
+    public static String video_url = "http://lol.qq.com/m/act/a20150319lolapp/video.htm";
+    public static String AD_url="http://qt.qq.com/static/pages/news/phone/c13_list_1.shtml";
 }

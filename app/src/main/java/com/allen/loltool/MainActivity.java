@@ -1,60 +1,89 @@
 package com.allen.loltool;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TabHost;
 
-import com.allen.loltool.hero_data.activity.HeroDataActivity;
-import com.allen.loltool.home.activity.HomeActivity;
-import com.allen.loltool.server_list.activity.ServerListActivity;
-import com.loopj.android.http.AsyncHttpClient;
+import com.allen.loltool.bean.Tab;
+import com.allen.loltool.hero.fragment.HeroFragment;
+import com.allen.loltool.message.fragment.MessageFragment;
+import com.allen.loltool.mine.fragment.MineFragment;
+import com.allen.loltool.news.fragment.NewsHomeFragment;
+import com.allen.loltool.news.fragment.VideoFragment;
+import com.allen.loltool.utils.ToastUtils;
+import com.allen.loltool.widget.FragmentTabHost;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    @Bind(R.id.button_serverlist)
-    Button buttonServerlist;
-    @Bind(R.id.button_herodata)
-    Button buttonHerodata;
-    @Bind(R.id.button_news)
-    Button buttonNews;
-    private AsyncHttpClient asyncHttpClient;
+
+
+    private FragmentTabHost mTabHost;
+    private LayoutInflater mInflater;
+    private List<Tab> tabs = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        buttonServerlist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ServerListActivity.class);
-                startActivity(intent);
-            }
-        });
+        initTab();
 
-        buttonHerodata.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, HeroDataActivity.class);
-                startActivity(intent);
-            }
-        });
-        buttonNews.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
+    private void initTab() {
+        Tab home = new Tab(R.string.home, R.drawable.home_bottom_tab_information_selector, NewsHomeFragment.class);
+        Tab hero = new Tab(R.string.hero, R.drawable.home_bottom_tab_hero_selector, HeroFragment.class);
+        Tab video = new Tab(R.string.video, R.drawable.home_bottom_tab_video_selector, VideoFragment.class);
+        Tab msg = new Tab(R.string.message, R.drawable.home_bottom_tab_community_selector, MessageFragment.class);
+        Tab mine = new Tab(R.string.mine, R.drawable.home_bottom_tab_more_selector, MineFragment.class);
+        tabs.add(home);
+        tabs.add(hero);
+        tabs.add(video);
+        tabs.add(msg);
+        tabs.add(mine);
 
+        mInflater = LayoutInflater.from(this);
+        mTabHost = (FragmentTabHost) findViewById(R.id.main_tabhost);
+
+        mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
+        mTabHost.getTabWidget().setShowDividers(LinearLayout.SHOW_DIVIDER_NONE);
+
+        for (Tab tab : tabs) {
+            TabHost.TabSpec tabSpec = mTabHost.newTabSpec(getString(tab.getTitle())).setIndicator(initBuildIndicator(tab));
+            mTabHost.addTab(tabSpec, tab.getFragment(), null);
+        }
+        mTabHost.setCurrentTab(0);
+
+    }
+
+    //构建tahhost的Indicator
+    private View initBuildIndicator(Tab tab) {
+        View view = mInflater.inflate(R.layout.item_tab, null);
+        ImageView icon = (ImageView) view.findViewById(R.id.item_tab_icon);
+
+        icon.setBackgroundResource(tab.getIcon());
+        return view;
+    }
+
+    private long exitTime = 0;
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if ((System.currentTimeMillis() - exitTime) > 1000) {
+                ToastUtils.showShort(this, "连按两次退出系统");
+                exitTime = System.currentTimeMillis();
+            } else {
+                this.finish();
+            }
+        }
+        return false;
+    }
 }
