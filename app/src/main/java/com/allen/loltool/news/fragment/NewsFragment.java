@@ -133,7 +133,7 @@ public class NewsFragment extends BaseFragment {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                LogUtil.d("lol_news_url_onFailure--------->", new String(responseBody));
+                LogUtil.d("lol_news_url_onFailure--------->", "error");
             }
 
             @Override

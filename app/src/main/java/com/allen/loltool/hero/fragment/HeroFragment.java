@@ -2,16 +2,14 @@ package com.allen.loltool.hero.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 
 import com.allen.loltool.R;
 import com.allen.loltool.base.BaseFragment;
@@ -22,9 +20,9 @@ import com.allen.loltool.hero.bean.ImageBean;
 import com.allen.loltool.hero_data.activity.HeroDataActivity;
 import com.allen.loltool.server_list.activity.ServerListActivity;
 import com.allen.loltool.summoner.activity.SummonerActivity;
-import com.allen.loltool.utils.DisplayUtil;
 import com.allen.loltool.utils.JsonUtils;
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
+import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Transformers.AccordionTransformer;
@@ -63,6 +61,14 @@ public class HeroFragment extends BaseFragment {
         HeroFragment heroFragment = new HeroFragment();
         return heroFragment;
     }
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            showAd(ad_imgurl);
+        }
+    };
 
     @Nullable
     @Override
@@ -120,22 +126,29 @@ public class HeroFragment extends BaseFragment {
             @Override
             public void onFinish() {
                 super.onFinish();
-                showAd(ad_imgurl);
+                handler.sendEmptyMessage(0);
             }
         });
     }
 
     private void showAd(List<ImageBean> imageBeans) {
-        for (int i = 0; i < imageBeans.size(); i++) {
-            TextSliderView textSliderView = new TextSliderView(getActivity());
-            textSliderView
-                    .description(imageBeans.get(i).getTitle())
-                    .image(imageBeans.get(i).getImg());
+        if (imageBeans.size() > 0) {
+            slider.setVisibility(View.VISIBLE);
+            for (int i = 0; i < imageBeans.size(); i++) {
+                TextSliderView textSliderView = new TextSliderView(getActivity());
+//          textSliderView.image(R.mipmap.ani).description("安妮");
+                textSliderView
+                        .description(imageBeans.get(i).getTitle())
+                        .image(imageBeans.get(i).getImg());
 
-            slider.addSlider(textSliderView);
-            slider.setCustomAnimation(new DescriptionAnimation());
-            slider.setPagerTransformer(false, new AccordionTransformer());
+                slider.addSlider(textSliderView);
+                slider.setCustomAnimation(new DescriptionAnimation());
+                slider.setPagerTransformer(false, new AccordionTransformer());
+                // slider.setPresetTransformer(SliderLayout.Transformer.RotateUp);
+                slider.setDuration(5000);
+            }
         }
+
 
     }
 
