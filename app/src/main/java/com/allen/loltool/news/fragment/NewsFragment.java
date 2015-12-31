@@ -21,11 +21,18 @@ import com.allen.loltool.utils.JsonUtils;
 import com.allen.loltool.utils.LogUtil;
 import com.allen.loltool.utils.ToastUtils;
 import com.allen.loltool.widget.loading.AVLoadingIndicatorView;
+import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.Callback;
+import com.zhy.http.okhttp.callback.StringCallback;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,7 +101,7 @@ public class NewsFragment extends BaseFragment {
                 //ToastUtils.showShort(getActivity(),listEntities.get(position-1).getArticle_url());
                 Intent intent = new Intent();
                 intent.setClass(getActivity(), NewsDetailsActivity.class);
-                intent.putExtra("article_url",listEntities.get(position-1).getArticle_url());
+                intent.putExtra("article_url", listEntities.get(position - 1).getArticle_url());
                 startActivity(intent);
                 //listEntities.get(position).getArticle_url();
             }
@@ -108,42 +115,79 @@ public class NewsFragment extends BaseFragment {
         }
     }
 
+    public class myNewsCallback extends Callback<NewsBean> {
+        @Override
+        public void onBefore(Request request) {
+            super.onBefore(request);
+        }
+
+        @Override
+        public NewsBean parseNetworkResponse(Response response) throws IOException {
+            String string = response.body().string();
+            NewsBean newsBean = new Gson().fromJson(string, NewsBean.class);
+            return newsBean;
+        }
+
+        @Override
+        public void onError(Request request, Exception e) {
+
+        }
+
+        @Override
+        public void onResponse(NewsBean response) {
+            nextUrl = response.getNext();
+            for (NewsBean.ListEntity list : response.getList()) {
+                listEntities.add(list);
+            }
+        }
+
+        @Override
+        public void onAfter() {
+            super.onAfter();
+            loadingView.setVisibility(View.GONE);
+            fragmentNewsListview.onRefreshComplete();
+            newsAdapter.notifyDataSetChanged();
+        }
+    }
+
+
     private void getNewsList(String url) {
-        AsyncHttpClient asyncHttpClient;
-
-        asyncHttpClient = new AsyncHttpClient();
-        asyncHttpClient.get(getActivity(), UrlAddress.newsbase_url + url, new AsyncHttpResponseHandler() {
-            @Override
-            public void onStart() {
-                super.onStart();
-                loadingView.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                String response = new String(responseBody);
-                NewsBean newsBean = JsonUtils.getObject(response, NewsBean.class);
-                nextUrl = newsBean.getNext();
-                for (NewsBean.ListEntity list : newsBean.getList()
-                        ) {
-                    listEntities.add(list);
-                }
-                LogUtil.d("news = ", response);
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                LogUtil.d("lol_news_url_onFailure--------->", "error");
-            }
-
-            @Override
-            public void onFinish() {
-                super.onFinish();
-                loadingView.setVisibility(View.GONE);
-                fragmentNewsListview.onRefreshComplete();
-                newsAdapter.notifyDataSetChanged();
-            }
-        });
+        OkHttpUtils.get().url(UrlAddress.newsbase_url + url).build().execute(new myNewsCallback());
+//        AsyncHttpClient asyncHttpClient;
+//
+//        asyncHttpClient = new AsyncHttpClient();
+//        asyncHttpClient.get(getActivity(), UrlAddress.newsbase_url + url, new AsyncHttpResponseHandler() {
+//            @Override
+//            public void onStart() {
+//                super.onStart();
+//                loadingView.setVisibility(View.VISIBLE);
+//            }
+//
+//            @Override
+//            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+//                String response = new String(responseBody);
+//                NewsBean newsBean = JsonUtils.getObject(response, NewsBean.class);
+//                nextUrl = newsBean.getNext();
+//                for (NewsBean.ListEntity list : newsBean.getList()
+//                        ) {
+//                    listEntities.add(list);
+//                }
+//                LogUtil.d("news = ", response);
+//            }
+//
+//            @Override
+//            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+//                LogUtil.d("lol_news_url_onFailure--------->", "error");
+//            }
+//
+//            @Override
+//            public void onFinish() {
+//                super.onFinish();
+//                loadingView.setVisibility(View.GONE);
+//                fragmentNewsListview.onRefreshComplete();
+//                newsAdapter.notifyDataSetChanged();
+//            }
+//        });
     }
 
     @Override

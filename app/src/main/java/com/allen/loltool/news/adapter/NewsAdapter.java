@@ -12,6 +12,7 @@ import com.allen.loltool.R;
 import com.allen.loltool.news.bean.NewsBean;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -58,15 +59,20 @@ public class NewsAdapter extends BaseAdapter {
         viewHolder.newsTitle.setText(listEntities.get(position).getTitle());
         viewHolder.newsSummary.setText(listEntities.get(position).getSummary());
         viewHolder.newsPublicationDate.setText(listEntities.get(position).getPublication_date());
-        DisplayImageOptions options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.news_image_normal)
-                .showImageOnFail(R.mipmap.news_image_normal).cacheInMemory(true)
-                .cacheOnDisk(true).bitmapConfig(Bitmap.Config.RGB_565).build();
-
-        ImageLoader.getInstance()
-                .displayImage(
-                        listEntities.get(position).getImage_url_small(),
-                        viewHolder.newsImg, options);
+//        DisplayImageOptions options = new DisplayImageOptions.Builder()
+//                .showImageOnLoading(R.mipmap.news_image_normal)
+//                .showImageOnFail(R.mipmap.news_image_normal).cacheInMemory(true)
+//                .cacheOnDisk(true).bitmapConfig(Bitmap.Config.RGB_565).build();
+//
+//        ImageLoader.getInstance()
+//                .displayImage(
+//                        listEntities.get(position).getImage_url_small(),
+//                        viewHolder.newsImg, options);
+        Picasso.with(mContext).load(listEntities.get(position)
+                .getImage_url_small())
+                .error(R.mipmap.news_image_normal)
+                .placeholder(R.mipmap.news_image_normal)
+                .into(viewHolder.newsImg);
         return convertView;
     }
 
