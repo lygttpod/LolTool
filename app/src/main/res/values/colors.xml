@@ -15,4 +15,5 @@
     <color name="w">#FFFFFF</color>
 
     <color name="home_tab_bg">#30333B</color>
+    <color name="transparent">#00ffffff</color>
 </resources>

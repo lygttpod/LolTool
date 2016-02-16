@@ -3,6 +3,7 @@ package com.allen.loltool.app;
 import android.app.Application;
 import android.content.Context;
 
+import com.easemob.chat.EMChat;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.UsingFreqLimitedMemoryCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -19,6 +20,13 @@ public class MyAppliction extends Application {
     public void onCreate() {
         super.onCreate();
         initImageLoader(getApplicationContext());
+        EMChat.getInstance().init(getApplicationContext());
+        /**
+         * debugMode == true 时为打开，sdk 会在log里输入调试信息
+         * @param debugMode
+         * 在做代码混淆的时候需要设置成false
+         */
+        EMChat.getInstance().setDebugMode(true);
     }
 
     public static void initImageLoader(Context context) {

@@ -41,12 +41,12 @@ public class MainActivity extends AppCompatActivity {
         Tab home = new Tab(R.string.home, R.drawable.home_bottom_tab_information_selector, NewsHomeFragment.class);
         Tab hero = new Tab(R.string.hero, R.drawable.home_bottom_tab_hero_selector, HeroFragment.class);
         Tab video = new Tab(R.string.video, R.drawable.home_bottom_tab_video_selector, VideoFragment.class);
-        Tab msg = new Tab(R.string.message, R.drawable.home_bottom_tab_community_selector, MessageFragment.class);
+        //Tab msg = new Tab(R.string.message, R.drawable.home_bottom_tab_community_selector, MessageFragment.class);
         Tab mine = new Tab(R.string.mine, R.drawable.home_bottom_tab_more_selector, MineFragment.class);
         tabs.add(home);
         tabs.add(hero);
         tabs.add(video);
-        tabs.add(msg);
+        //tabs.add(msg);
         tabs.add(mine);
 
         mInflater = LayoutInflater.from(this);
